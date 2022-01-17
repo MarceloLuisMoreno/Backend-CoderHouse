@@ -4,7 +4,6 @@ module.exports = function Error(message){
     this.message = message;
 }
 
-
 module.exports = class Contenedor {
     constructor(ruta) {
         this.ruta = ruta
@@ -14,7 +13,6 @@ module.exports = class Contenedor {
         const objs = await this.getAll()
         let newId = 1
         if (objs.length > 0) newId = objs[objs.length - 1].id + 1
-
         const newObj = { ...producto, id: newId }
         objs.push(newObj)
         try {
@@ -44,15 +42,10 @@ module.exports = class Contenedor {
             return objsRecuperados
         }
         catch (err) { throw new Error(`Se produjo Error al leer archivo: ${err}`)}
-        
-        //{throw `No se pudo leer el archivo ${this.ruta}, ERROR ${err}` }
-                        
     }
 
     async deleteById(id) {
-
         const objs = await this.getAll()
-
         const buscado = objs.findIndex(o => o.id == id)
         if (buscado === -1) throw new Error(`No se encontró el Producto con id = ${id}`)
         else objs.splice(buscado, 1)
