@@ -12,7 +12,7 @@ app.get('/productos', (req, res) => {
     contenedor.getAll()
         .then(productos => {
             console.log(productos)
-            res.send(`ARRAY CON TODOS LOS PRODUCTOS: ${JSON.stringify(productos)}`)
+            res.send(productos)
         },
             err => res.json({ mssg: `ERROR: ${err}` })
         )
@@ -24,7 +24,7 @@ app.get('/productoRandom', (req, res) => {
         .then(productos => {
             const aleatorio = (Math.floor(Math.random() * (productos.length - 1) + 1))
             console.log("PRODUCTO AL AZAR:", productos[aleatorio])
-            res.send(`PRODUCTO AL AZAR: ${JSON.stringify(productos[aleatorio])}`)
+            res.send(productos[aleatorio])
         },
             err => res.json({ mssg: `ERROR: ${err}` })
         )
