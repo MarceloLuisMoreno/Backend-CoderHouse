@@ -6,81 +6,51 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 //creo instancias del Router
-const productos = Router()
+const productosRouter = Router()
 
 // contenedor
-const Contenedor = require('./ContenedorProductos.js')
-
-//solicito ingreso de producto
-function ingresoProducto(req, res, next) {
-    const title = req.body.title
-    const price = req.body.price
-    const thumbnail = req.body.thumbnail
-    req.body.title = title
-    req.body.price = price
-    req.body.thumbnail = thumbnail
-    next()
-}
-
-//Creo array como soporte de persistencia de productos en memoria
-let listaProductos = []
+const Contenedor = require('./src/ContenedorProductos.js')
+const productosApi = new Contenedor()
 
 //Endpoints
 //**********
 
 //Devuelvo todos los productos
-productos.get('/', (req, res) => {
-    res.send(listaProductos)
+productosRouter.get('/', (req, res) => {
+    res.send(contenedor.getAll())
 })
 
 //Devuelvo un producto según su id
-productos.get('/:id', (req, res, next) => {
-    const idBuscado = req.params.id
-    const contenedor = new Contenedor(listaProductos)
-    const buscado = contenedor.getById(idBuscado)
+productosRouter.get('/:id', (req, res, next) => {
+    const buscado = productosApi.getById(req.params.id)
     if (!buscado) next({ error: 'Producto no encontrado.' })
     res.send(buscado)
 })
 
 //Recibo y agrego un producto y lo devuelvo con el id asignado
-productos.post('/', ingresoProducto, (req, res) => {
-    const title = req.body.title
-    const price = req.body.price
-    const thumbnail = req.body.thumbnail
-    const contenedor = new Contenedor(listaProductos)
-    listaProductos = contenedor.save(title, price, thumbnail)
-    res.send(listaProductos)
+productosRouter.post('/', (req, res) => {
+    const newProduct = productosApi.save(req.body)
+    res.send(newProduct)
 })
 
 //Recibo y actualizo un producto segun su id
-productos.put('/:id', (req, res) => {
-    const title = req.body.title
-    const price = req.body.price
-    const thumbnail = req.body.thumbnail
-    const id = req.body.id
-    const contenedor = new Contenedor(listaProductos)
-    const nuevaLista = contenedor.modifyById(id, title, price, thumbnail)
-    if (nuevaLista == undefined) {
-        return res.status(404).send({ error: 'Producto no encontrado.' })
-    }
+productosRouter.put('/:id', (req, res) => {
+    const nuevaLista = productosApi.modifyById(req.body)
+    if (nuevaLista == undefined) return res.status(404).send({ error: 'Producto no encontrado.' })
     else listaProductos = nuevaLista
-    res.send()
+    res.send({status: 'OK'})
 })
 
 //Recibo y elimino un producto segun su id
-productos.delete('/:id', (req, res) => {
-    const idBuscado = req.body.id
-    const contenedor = new Contenedor(listaProductos)
-    const nuevaLista = contenedor.deleteById(idBuscado)
-    if (nuevaLista == undefined) {
-        return res.status(404).send({ error: 'Producto no encontrado.' })
-    }
+productosRouter.delete('/:id', (req, res) => {
+    const nuevaLista = productosApi.deleteById(req.body.id)
+    if (nuevaLista == undefined) return res.status(404).send({ error: 'Producto no encontrado.' })
     else listaProductos = nuevaLista
-    res.send()
+    res.send({status: 'OK'})
 })
 
 //creo un middleware (un enrutamiento)
-app.use('/api/productos', productos)  
+app.use('/api/productos', productosRouter)  
 
 app.use('/static', express.static(__dirname + '/public'))
 
@@ -89,4 +59,8 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500).send(err)
 })
 
-app.listen(8080)
+const PORT = 8080
+const server = app.listen(8080, () => { 
+    console.log(`API RESTfull ready por: ${server.address().port}`) } )
+
+server.on('error', error => console.log(`Error en servidor ${error}`))

@@ -1,14 +1,18 @@
 // contenedor
 
 module.exports = class Contenedor {
-    constructor(listaProductos) {
-        this.listaProductos = listaProductos
+    constructor() {
+        this.listaProductos = []
     }
 
-    save(title, price, thumbnail) {
+    getAll() {
+        return this.listaProductos
+    }
+    
+    save(newProduct) {
         let id = 1
         if (this.listaProductos.length > 0) id = this.listaProductos[this.listaProductos.length - 1].id + 1
-        this.listaProductos.push({ 'title': title, 'price': price, 'thumbnail': thumbnail, 'id': id })
+        this.listaProductos.push( {...newProduct, id:id})
         return this.listaProductos
     }
 
@@ -24,12 +28,12 @@ module.exports = class Contenedor {
         return this.listaProductos
     }
 
-    modifyById(id, title, price, thumbnail) {
-        const buscado = this.listaProductos.findIndex(o => o.id == id)
+    modifyById(producto) {
+        const buscado = this.listaProductos.findIndex(o => o.id == producto.id)
         if (buscado === -1) return void (0)
-        this.listaProductos[buscado].title = title
-        this.listaProductos[buscado].price = price
-        this.listaProductos[buscado].thumbnail = thumbnail
+        this.listaProductos[buscado].title = producto.title
+        this.listaProductos[buscado].price = producto.price
+        this.listaProductos[buscado].thumbnail = producto.thumbnail
         return this.listaProductos
     }
 }
