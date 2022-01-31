@@ -1,0 +1,22 @@
+extends layout 
+
+block ingresoDatos
+
+    .jumbotron
+      h1(style='color: blue;') Ingrese Producto
+      br
+      form(action='/productos/' method='post')
+        .form-group
+          label(for='name')
+            b Nombre
+          input#name.form-control(type='text' name='name' required='required')
+        .form-group
+          label(for='price')
+            b Precio
+          input#price.form-control(type='number' step='0.01' name='price' required='required')
+        .form-group
+          label(for='thumbnail')
+            b Foto URL
+          input#thumbnail.form-control(type='url' name='thumbnail' required='required')
+        button.btn.btn-success.mt-3.mb-5 Enviar
+      a.btn.btn-primary(href='/productos' role='button') Vista de Productos

@@ -1,0 +1,29 @@
+<h2 style="color:blue">Vista de Productos</h2>
+<br>
+<div class="table-resparagrahpsponsive">
+    <table class="table table-dark">
+        <tr style="color:white">
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Foto</th>
+        </tr>
+        {{#each productos}}
+        <tr>
+            <td class="align-middle">
+                {{name}}
+            </td>
+            <td class="align-middle">
+                $ {{price}}
+            </td>
+            <td class="align-middle">
+                <img src="{{thumbnail}}" width="80">
+            </td>
+        </tr>
+        {{else}}
+            <h3 class="alert alert-warning">No se encontraron productos.</h3>
+        {{/each}}
+    </table>
+
+</div>
+
+<a class="btn btn-primary" href="/" role="button">Ingreso de Productos</a>

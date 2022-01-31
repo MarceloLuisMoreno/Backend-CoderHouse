@@ -1,0 +1,26 @@
+extends layout 
+
+block productos
+
+    .jumbotron
+      h2(style='color:blue') Vista de Productos
+      br
+      if productos.length>0
+        .table-responsive
+          table.table.table-dark
+            tbody
+              tr(style='color:white')
+                th Nombre
+                th Precio
+                th Foto
+            
+              each producto in productos
+                tr
+                  td.align-middle=producto.name
+                  td.align-middle=producto.price
+                  td.align-middle
+                    img(src=`${producto.thumbnail}` width='80')
+      else
+        h3.alert.alert-warning No se encontraron productos.
+      
+      a.btn.btn-primary(href='/' role='button') Ingreso de Productos
