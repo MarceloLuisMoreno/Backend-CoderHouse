@@ -1,0 +1,32 @@
+[
+  {
+    "email": "Juan@gmail.com",
+    "date": "4/2/2022 14:53:24",
+    "text": "¡Hola! ¿Que tal?",
+    "id": 1
+  },
+  {
+    "email": "Pedro@gmail.com",
+    "date": "4/2/2022 14:53:24",
+    "text": "¡Muy bien! ¿Y vos?",
+    "id": 2
+  },
+  {
+    "email": "Ana@gmail.com",
+    "date": "4/2/2022 14:53:24",
+    "text": "¡Genial!",
+    "id": 3
+  },
+  {
+    "email": "marceloluismoreno@gmail.com",
+    "date": "4/2/2022 16:26:10",
+    "text": "hola hay alguien ?",
+    "id": 5
+  },
+  {
+    "email": "marceloluismoreno@gmail.com",
+    "date": "4/2/2022 16:31:44",
+    "text": "Necesito comprar una pizarra",
+    "id": 6
+  }
+]

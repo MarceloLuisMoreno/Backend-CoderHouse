@@ -35,7 +35,6 @@ app.get('/', (req, res) => {
 })
 
 //PRODUCTOS ROUTERS
-
 //=================
 
 //Muestro los productos en pantalla
@@ -92,4 +91,3 @@ const server = app.listen(8080, () => {
     console.log(`API RESTfull ready por: ${server.address().port}`) } )
 
 server.on('error', error => console.log(`Error en servidor ${error}`))
-
