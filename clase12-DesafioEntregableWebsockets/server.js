@@ -18,12 +18,13 @@ const contenedorMessages = new Contenedor('./public/data/messages.json')
 // Servidor
 io.on('connection', async socket => {
 	console.log('Un Cliente se ha Conectado!')
+
 	//*****PRODUCTOS******
 	// Envío los productos al cliente que se conecto
 	const products = await contenedorProductos.getAll()
 	socket.emit('products', products)
 
-	// Escucho los cambios en productos y los propago a todos
+	// Escucho los cambios en productos (uso async por los métodos asincrónicos de la clase Contenedor) y los propago a todos
 	socket.on('newProduct', async product => {
 		await contenedorProductos.saveProduct(product)
 		io.sockets.emit('products', products)
@@ -34,7 +35,7 @@ io.on('connection', async socket => {
 	const messages = await contenedorMessages.getAll();
 	socket.emit('messages', messages)
 
-	// Escucho los mensajes enviados por el cliente y se los propago a todos
+	// Escucho los mensajes enviados por el cliente (uso async por los métodos asincrónicos de la clase Contenedor) y se los propago a todos
 	socket.on('newMessage', async message => {
 		await contenedorMessages.saveProduct(message)
 		io.sockets.emit('messages', messages)
