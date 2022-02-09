@@ -12,13 +12,17 @@ module.exports = class Contenedor {
         }
     };
 
-    getById = async id => {
+    getById = async (id) => {
+        try {
         const lista = await this.getAll();
         const buscado = lista.find(product => product.id == id);
         return buscado
+        } catch (error) {
+            console.log(error)
+        }
     };
 
-    saveProduct = async product => {
+    saveProduct = async (product) => {
         const lista = await this.getAll();
         let newId = 1
         if (lista.length > 0) {

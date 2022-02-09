@@ -21,23 +21,25 @@ io.on('connection', async socket => {
 
 	//*****PRODUCTOS******
 	// Envío los productos al cliente que se conecto
-	const products = await contenedorProductos.getAll()
+	let products = await contenedorProductos.getAll()
 	socket.emit('products', products)
 
 	// Escucho los cambios en productos (uso async por los métodos asincrónicos de la clase Contenedor) y los propago a todos
 	socket.on('newProduct', async product => {
 		await contenedorProductos.saveProduct(product)
+		let products = await contenedorProductos.getAll()
 		io.sockets.emit('products', products)
 	})
 
 	//*****MENSAJES*****
 	//Envío la lista de mensajes guardados al Cliente
-	const messages = await contenedorMessages.getAll();
+	let messages = await contenedorMessages.getAll();
 	socket.emit('messages', messages)
 
 	// Escucho los mensajes enviados por el cliente (uso async por los métodos asincrónicos de la clase Contenedor) y se los propago a todos
 	socket.on('newMessage', async message => {
 		await contenedorMessages.saveProduct(message)
+		let messages = await contenedorMessages.getAll()
 		io.sockets.emit('messages', messages)
 	})
 
