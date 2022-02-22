@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap Jumbotron CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <title>WEBSOCKETS</title>
+    <!-- Socket.io CLIENTE -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- CDN Handlebars -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+        integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body class="p-5">
+    <div class="container">
+        <!-- Ingreso de Productos en formulario -->
+        <div class="jumbotron">
+            <h1 style="color: blue;">Ingrese Producto</h1>
+            <br>
+            <form id="formProduct" onsubmit="return addProduct(this)">
+                <div class="form-group">
+                    <label for="name"><b>Nombre</b></label>
+                    <input id="title" class="form-control" type="text" name="name" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="price"><b>Precio</b></label>
+                    <input id="price" class="form-control" type="number" step="0.01" name="price" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="thumbnail"><b>Foto URL</b></label>
+                    <input id="thumbnail" class="form-control" type="url" name="thumbnail" required="required">
+                </div>
+                <button class="btn btn-success mt-3 mb-5">Enviar</button>
+            </form>
+            <!-- Vista de los Productos -->
+            <h2 style="color:blue">Vista de Productos</h2>
+            <br>
+            <div id="tableProducts"></div>
+        </div>
+        <!-- Centro de Mensajes -->
+        <div class="jumbotron">
+            <h1 style="color:blue">Centro de mensajes</h1>
+            <br>
+            <input name="email" class="btn border border-primary mt-3 text-left" type="mail" placeholder="Tu email"
+                size="40" required="required">
+            <hr>
+            <div id="tableMessages"></div>
+            <br>
+            <input name="text" class="btn border border-primary mt-3 text-left" type="text"
+                placeholder="Ingrese el mensaje" size="60" required="required">
+            <button name="messages" class="btn btn-primary mt-3">Enviar</button>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+
+<footer>
+    <br /><br />
+    <p class="text-center text-muted">Copiright 2022 - CoderHouse - Marcelo Luis Moreno</p>
+</footer>
+
+</html>

@@ -1,0 +1,8 @@
+{{!-- Tabla de mensajes --}}
+{{#each messages}}
+<div>
+    <strong style="color: blue">{{this.email}}</strong>
+    <span style="color: brown">{{this.date}}</span>:
+    <em style="color: green">{{this.text}}</em>
+</div>
+{{/each}}
