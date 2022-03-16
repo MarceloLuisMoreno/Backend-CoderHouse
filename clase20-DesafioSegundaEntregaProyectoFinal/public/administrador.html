@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap Jumbotron CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <title>Administrador-ecommerce</title>
+</head>
+
+<body class="p-5">
+    <section id="administrador">
+
+        <div class="container">
+            <!-- Ingreso de Productos en formulario -->
+            <h1 style="color: blue">Sección Administrador</h1>
+            <div class="jumbotron">
+
+                <h2 style="color: blue">Ingrese Producto</h2>
+                <br />
+                <form id="formProduct" action='http://localhost:8080/api/productos/' method="POST">
+                    <div class="form-group">
+                        <label for="nombre"><b>Nombre</b></label>
+                        <input id="nombre" class="form-control" type="text" name="nombre" required="required" />
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion"><b>Descripcion</b></label>
+                        <input id="descripcion" class="form-control" type="text" name="descripcion"
+                            required="required" />
+                    </div>
+                    <div class="form-group">
+                        <label for="codigo"><b>Código</b></label>
+                        <input id="codigo" class="form-control" type="number" name="codigo" required="required" />
+                    </div>
+                    <div class="form-group">
+                        <label for="foto"><b>Foto URL</b></label>
+                        <input id="foto" class="form-control" type="url" name="foto" required="required" />
+                    </div>
+                    <div class="form-group">
+                        <label for="precio"><b>Precio</b></label>
+                        <input id="precio" class="form-control" type="number" step="0.01" name="precio"
+                            required="required" />
+                    </div>
+                    <div class="form-group">
+                        <label for="stock"><b>Stock</b></label>
+                        <input id="stock" class="form-control" type="number" name="stock" required="required" />
+                    </div>
+                    <button class="btn btn-success mt-3 mb-5">Enviar</button>
+                </form>
+            </div>
+
+            <!-- Vista de los Productos -->
+            <div class="jumbotron">
+                <h2 style="color: blue">Vista de Productos</h2>
+                <br />
+                <div id="tableProducts" class="card-columns" style="column-count: 4"></div>
+            </div>
+            <br>
+
+            <!-- Vista del Carrito -->
+            <div class="jumbotron">
+                <h2 style="color: blue"> Carritos </h2>
+                <br />
+                <div id="carrito"></div>
+            </div>
+
+            <!-- Ingreso de Productos en formulario -->
+            <div id="updateProduct" class="jumbotron">
+                <h1 style="color: blue">Modificación de Productos</h1>
+                <br />
+                <form id="formUdateProduct" onsubmit="return upDateProduct(this)">
+                    <div class="form-group col-3">
+                        <label for="idUpdate"><b>Id</b></label>
+                        <input id="idUpdate" class="form-control" type="number" name="id" />
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="nombreUpdate"><b>Nombre</b></label>
+                        <input id="nombreUpdate" class="form-control" type="text" name="nombre" />
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="descripcionUpdate"><b>Descripcion</b></label>
+                        <input id="descripcionUpdate" class="form-control" type="text" name="descripcion"
+                            />
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="codigoUpdate"><b>Código</b></label>
+                        <input id="codigoUpdate" class="form-control" type="number" name="codigo" />
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="fotoUpdate"><b>Foto URL</b></label>
+                        <input id="fotoUpdate" class="form-control" type="url" name="foto" />
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="precioUpdate"><b>Precio</b></label>
+                        <input id="precioUpdate" class="form-control" type="number" step="0.01" name="precio"
+                            />
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="stockUpdate"><b>Stock</b></label>
+                        <input id="stockUpdate" class="form-control" type="number" name="stock" />
+                    </div>
+
+
+                    <input class="btn btn-success mt-3 mb-5" type="submit" value="Enviar">
+                </form>
+            </div>
+
+        </div>
+
+        </div>
+
+    </section>
+
+
+    <script src="./js/mainAdm.js"></script>
+
+</body>
+
+<footer>
+    <br /><br />
+    <p class="text-center text-muted">Copyright 2022 - CoderHouse - Marcelo Luis Moreno</p>
+</footer>
+
+
+</html>
