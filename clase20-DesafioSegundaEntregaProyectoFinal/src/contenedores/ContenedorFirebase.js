@@ -124,17 +124,14 @@ module.exports = class ContenedorFirebase {
     deleteProductCart = async (id, idProd) => {
         try {
             const carrito = await this.getById(id)
-            if (!carrito) throw new Error("Carrito no encontrado.")
-            else {
-                let productos = carrito.productos
-                const indexProd = productos.findIndex(idProduc => idProduc.id == idProd)
-                if (indexProd != -1) {
-                    const newProductos = productos.filter(product => product.id != idProd)
-                    carrito.productos = newProductos
-                    await this.query.doc(`${id}`).update(carrito)
-                    return void(0)
-                } else throw new Error('Producto no existe.')
-            }
+            let productos = carrito.productos
+            const indexProd = productos.findIndex(idProduc => idProduc.id == idProd)
+            if (indexProd != -1) {
+                const newProductos = productos.filter(product => product.id != idProd)
+                carrito.productos = newProductos
+                await this.query.doc(`${id}`).update(carrito)
+                return void(0)
+            } else throw new Error('Producto no existe.')
         } catch (error) {
             throw new Error(`Error al borrar: ${error}`)
         }
