@@ -91,10 +91,10 @@ const deleteProdCarrito = async (req, res, next) => {
 		if (!buscado) {
 			throw new Error("Carrito no encontrado.")
 		} else {
-			await cartDAO.deleteProductCart(id, id_prod).then((resolve) => {
-				res.json(`Del carrito ${id}: el producto ${id_prod} se borró con éxito.`)
-			})
+			await cartDAO.deleteProductCart(id, id_prod).then((resolve) => resolve)
+			
 		}
+		res.json(`Del carrito ${id}: el producto ${id_prod} se borró con éxito.`)
 	} catch (error) {
 		next(error)
 	}
@@ -110,22 +110,13 @@ const deleteCarrito = async (req, res, next) => {
 		} else {
 			await cartDAO.deleteById(id)
 				.then((resolve) => {
-					res.json(`El carrito ${id}: Se borró con éxito.`)
+					res.json(`Carrito ${id}: Se borró con éxito.`)
 				})
 		}
 	} catch (error) {
 		next(error)
 	}
-}
 
-const deleteAllCarrito = async (req, res, next) => {
-	try {
-		await cartDAO.saveAll("[]").then((resolve) => {
-			res.json(`Todos los productos se borraron con éxito.`)
-		})
-	} catch (error) {
-		next(error)
-	}
 }
 
 
@@ -136,5 +127,4 @@ module.exports = {
 	addProdCarrito,
 	deleteProdCarrito,
 	deleteCarrito,
-	deleteAllCarrito
 }

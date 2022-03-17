@@ -85,23 +85,11 @@ const updateProdById = async (req, res, next) => {
     }
 }
 
-const deleteAllProd = async (req, res, next) => {
-    try {
-        await productsDAO.saveAll("[]")
-            .then((resolve) => {
-                res.json(`Todos los productos se borraron con éxito.`)
-            })
-    } catch (error) {
-        next(error)
-    }
-}
-
 
 module.exports = {
     getProduct,
     getProducts,
     saveProduct,
-    deleteAllProd,
     deleteProduct,
     updateProdById,
     saveProduct

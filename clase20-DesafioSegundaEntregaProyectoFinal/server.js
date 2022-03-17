@@ -10,8 +10,6 @@ const middlewares = require('./src/utils/middlewares')
 
 require('dotenv').config()
 
-
-
 const productosRouter = require('./src/routers/productos')
 const carritoRouter = require('./src/routers/carrito')
 

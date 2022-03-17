@@ -20,26 +20,20 @@ module.exports = class ContenedorFirebase {
             const query = await this.query.get()
             const lista = query.docs
             const response = (this.coleccion === 'productos') ?
-            lista.map((doc) => ({
-                id: doc.id,
-                timestamp: doc.data().timestamp,
-                nombre: doc.data().nombre,
-                descripcion: doc.data().descripcion,
-                codigo: doc.data().codigo,
-                foto: doc.data().foto,
-                precio: doc.data().precio,
-                stock: doc.data().stock
-            })) : lista.map((doc) => ({
-                id: doc.id,
-                timestamp: doc.data().timestamp,
-                nombre: doc.data().nombre,
-                descripcion: doc.data().descripcion,
-                codigo: doc.data().codigo,
-                foto: doc.data().foto,
-                precio: doc.data().precio,
-                stock: doc.data().stock,
-                productos: doc.data().productos
-            }))
+                lista.map((doc) => ({
+                    id: doc.id,
+                    timestamp: doc.data().timestamp,
+                    nombre: doc.data().nombre,
+                    descripcion: doc.data().descripcion,
+                    codigo: doc.data().codigo,
+                    foto: doc.data().foto,
+                    precio: doc.data().precio,
+                    stock: doc.data().stock
+                })) : lista.map((doc) => ({
+                    id: doc.id,
+                    timestamp: doc.data().timestamp,
+                    productos: doc.data().productos
+                }))
 
             return response
         } catch (error) {
@@ -47,20 +41,29 @@ module.exports = class ContenedorFirebase {
         }
     };
 
-    saveAll = async (nuevaLista) => {
-        try {
-            const newLista = new this.coleccion(nuevaLista)
-            await newLista.save();
-        } catch (error) {
-            throw error
-        }
-    };
-
     getById = async (id) => {
         try {
             const doc = await this.query.doc(`${id}`).get()
-            const item = doc.data()
-            return item
+            let response
+            if (doc.data()) {
+                response = (this.coleccion === 'productos') ? {
+                    id: doc.id,
+                    timestamp: doc.data().timestamp,
+                    nombre: doc.data().nombre,
+                    descripcion: doc.data().descripcion,
+                    codigo: doc.data().codigo,
+                    foto: doc.data().foto,
+                    precio: doc.data().precio,
+                    stock: doc.data().stock
+                } : {
+                    id: doc.id,
+                    timestamp: doc.data().timestamp,
+                    productos: doc.data().productos
+                }
+            } else {
+                throw new Error('No se encontro.')
+            }
+            return response
         } catch (error) {
             throw new Error(`Error al listar id: ${error}`)
         }
@@ -74,8 +77,9 @@ module.exports = class ContenedorFirebase {
                 ...elemento,
                 timestamp
             };
-            await this.query.add(newElemento)
-            return newElemento
+            const grabar = await this.query.add(newElemento)
+            const newId = grabar._path.segments[1]
+            return newId
         } catch (error) {
             throw new Error(`Error al guardar: ${error}`)
         }
@@ -123,10 +127,13 @@ module.exports = class ContenedorFirebase {
             if (!carrito) throw new Error("Carrito no encontrado.")
             else {
                 let productos = carrito.productos
-                const newProductos = productos.filter(product => product.id != idProd)
-                carrito.productos = newProductos
-                await this.query.doc(`${id}`).update(carrito)
-                return void(0)
+                const indexProd = productos.findIndex(idProduc => idProduc.id == idProd)
+                if (indexProd != -1) {
+                    const newProductos = productos.filter(product => product.id != idProd)
+                    carrito.productos = newProductos
+                    await this.query.doc(`${id}`).update(carrito)
+                    return void(0)
+                } else throw new Error('Producto no existe.')
             }
         } catch (error) {
             throw new Error(`Error al borrar: ${error}`)

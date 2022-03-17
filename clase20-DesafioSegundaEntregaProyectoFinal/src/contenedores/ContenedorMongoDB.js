@@ -18,33 +18,23 @@ module.exports = class ContenedorMongo {
     getAll = async () => {
         try {
             const lista = await this.coleccion.find({})
-            if (!lista) return null
+            if (lista.length === 0) return null
             return lista
         } catch (error) {
             throw new Error(`Error al listar todo: ${error}`)
         }
     };
 
-    saveAll = async (nuevaLista) => {
-        try {
-            const newLista = new this.coleccion(nuevaLista)
-            const save = await newLista.save()
-                .then(res => res)
-            return save
-        } catch (error) {
-            throw error
-        }
-    };
-
     getById = async (id) => {
         try {
-            const buscado = await this.coleccion.find({
+            let buscado = await this.coleccion.find({
                     _id: {
                         $eq: id
                     }
                 })
                 .then(res => res)
-            return buscado
+            if (buscado.length === 0) return null
+            else return buscado
         } catch (error) {
             throw new Error(`Error al listar id: ${error}`)
         }
@@ -69,12 +59,14 @@ module.exports = class ContenedorMongo {
 
     deleteById = async (id) => {
         try {
-            await this.coleccion.deleteOne({
+            const borrado = await this.coleccion.deleteOne({
                 _id: {
                     $eq: id
                 }
             })
-            return void(0)
+            if (!borrado.modifieCount)
+                throw next(error)
+            else return void(0)
         } catch (error) {
             throw new Error(`Error al borrar id: ${error}`)
         }
@@ -92,7 +84,7 @@ module.exports = class ContenedorMongo {
             } = newElemento;
             const newTimestamp = new Date()
             const timestamp = newTimestamp.toLocaleString()
-            await this.coleccion.updateOne({
+            const modificado = await this.coleccion.updateOne({
                 _id: id
             }, {
                 $set: {
@@ -105,7 +97,10 @@ module.exports = class ContenedorMongo {
                     stock: stock
                 }
             })
-            return void(0)
+            if (!modificado.modifieCount)
+                throw next(error)
+            else return void(0)
+
         } catch (error) {
             throw new Error(`Error al actualizar id: ${error}`)
         }
@@ -135,19 +130,19 @@ module.exports = class ContenedorMongo {
         try {
 
             const carrito = await this.getById(id)
-            let productos = carrito[0].productos
-            const newProductos = productos.filter(product => product.id != idProd)
+            let productos = await carrito[0].productos
+            const newProductos = productos.filter(product => product._id != idProd)
             carrito.productos = newProductos
-            await this.coleccion.updateOne({
+            const borrado = await this.coleccion.updateOne({
                 _id: id
             }, {
                 $set: {
                     productos: carrito.productos
                 }
             })
-            return void(0)
-
-
+            if (!borrado.modifieCount)
+                throw next(error)
+            else return void(0)
         } catch (error) {
             throw new Error(`Error al borrar: ${error}`)
         }
