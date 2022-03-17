@@ -68,12 +68,13 @@ const addProdCarrito = async (req, res, next) => {
 	try {
 		const id = req.params.id
 		const newProduct = req.body
-		const producto = await productsDAO.getById(newProduct.id)
+		const idProd = process.env.DB==="mongoDB" ? newProduct._id : newProduct.id 
+		const producto = await productsDAO.getById(idProd)
 			.then((resolve) => resolve)
 		if (!producto) {
 			throw new Error("Producto no encontrado.")
 		}
-		const carrito = await cartDAO.saveProductCart(id, producto)
+		carrito = await cartDAO.saveProductCart(id, newProduct)
 			.then((resolve) => {
 				res.json(`El producto ${id}: Se agrego al carrito con éxito.`)
 			})
@@ -91,7 +92,7 @@ const deleteProdCarrito = async (req, res, next) => {
 		if (!buscado) {
 			throw new Error("Carrito no encontrado.")
 		} else {
-			await carritos.deleteProductCart(id,id_prod).then((resolve) => {
+			await cartDAO.deleteProductCart(id,id_prod).then((resolve) => {
 				res.json(`${id}: Se borró con éxito.`)
 			})
 		}
@@ -108,7 +109,7 @@ const deleteCarrito = async (req, res, next) => {
 		if (!buscado) {
 			throw new Error("Carrito no encontrado.")
 		} else {
-			await carritos.deleteById(id)
+			await cartDAO.deleteById(id)
 				.then((resolve) => {
 					res.json(`El carrito ${id}: Se borró con éxito.`)
 				})

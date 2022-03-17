@@ -1,4 +1,13 @@
 const mongoose = require('mongoose')
+const config = require('../../config.js')
+const URL = config.mongoLocal.cnxStr
+
+
+mongoose.connect(URL)
+    .then(console.log('Base de datos Mongoose conectada'))
+    .catch((error) => {
+        console.log(`Error: ${error}`)
+    })
 
 module.exports = class ContenedorMongo {
     constructor(elementModel) {
@@ -27,7 +36,7 @@ module.exports = class ContenedorMongo {
 
     getById = async (id) => {
         try {
-            const buscado = this.coleccion.find({
+            const buscado = await this.coleccion.find({
                 _id: {
                     $eq: id
                 }
@@ -53,7 +62,6 @@ module.exports = class ContenedorMongo {
             throw new Error(`Error al guardar: ${error}`)
         }
     };
-
 
     deleteById = async (id) => {
         try {
@@ -104,11 +112,15 @@ module.exports = class ContenedorMongo {
     saveProductCart = async (id, newProduct) => {
         try {
             let carrito = await this.getById(id)
-            carrito.productos = push(newProduct)
-            const newElement = new this.Modelo(carrito)
+            let productos = carrito[0].productos
+            productos.push(newProduct)
             await this.coleccion.updateOne({
                 _id: id
-            }, { newElement })
+            }, {
+                $set: {
+                    productos: productos
+                }
+            })
             return void(0)
         } catch (error) {
             throw new Error(`Error al guardar: ${error}`)
@@ -116,26 +128,25 @@ module.exports = class ContenedorMongo {
     };
 
     deleteProductCart = async (id, idProd) => {
-/*         try {
-            const buscado = await this.getById(id)
-            if (!buscado) return null
-            else {
-                let cart = await this.getAll()
-                const index = cart.findIndex(idCarrito => idCarrito.id == id);
-                const indexProd = cart[index].productos.findIndex(idCarrito => idCarrito.id == idProd)
-                if (indexProd != -1) {
-                    const newCart = cart[index].productos.filter(product => product.id != idProd)
-                    cart[index].productos = newCart
-                    const newCartJson = JSON.stringify(cart, null, 2)
-                    await this.saveAll(newCartJson)
-                    return void(0)
-                } else {
-                    return null
+        try {
+
+            const carrito = await this.getById(id)
+            let productos = carrito[0].productos
+            const newProductos = productos.filter(product => product.id != idProd)
+            carrito.productos = newProductos
+            await this.coleccion.updateOne({
+                _id: id
+            }, {
+                $set: {
+                    productos: carrito.productos
                 }
-            }
+            })
+            return void(0)
+
+
         } catch (error) {
             throw new Error(`Error al borrar: ${error}`)
         }
- */    }
+    }
 
 }

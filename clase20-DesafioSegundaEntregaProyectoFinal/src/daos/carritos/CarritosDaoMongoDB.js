@@ -4,16 +4,6 @@ const {
     model
 } = require('mongoose')
 
-const config = require('../../../config.js')
-const URL = config.mongoLocal.cnxStr
-
-
-mongoose.connect(URL)
-    .then(console.log('Base de datos Mongoose conectada'))
-    .catch((error) => {
-        console.log(`Error: ${error}`)
-    })
-
 const carritosCollection = 'carrito'
 const CarritoSchema = new Schema({
     timestamp: {
@@ -21,6 +11,11 @@ const CarritoSchema = new Schema({
         required: true
     },
     productos: [{
+        
+        id: {
+            type: String,
+            required: true
+        },
         timestamp: {
             type: String,
             required: true
@@ -37,10 +32,7 @@ const CarritoSchema = new Schema({
             type: Number,
             required: true
         },
-        foto: {
-            type: String,
-            required: true
-        },
+        foto: { type: String },
         precio: {
             type: Number,
             required: true,

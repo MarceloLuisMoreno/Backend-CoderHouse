@@ -4,17 +4,6 @@ const {
 	model
 } = require('mongoose')
 
-
-const config = require('../../../config.js')
-const URL = config.mongoLocal.cnxStr
-
-
-mongoose.connect(URL)
-	.then(console.log('Base de datos Mongoose conectada'))
-	.catch((error) => {
-		console.log(`Error: ${error}`)
-	})
-
 const productosCollection = 'productos'
 const ProductoSchema = new Schema({
 	timestamp: {
@@ -34,9 +23,7 @@ const ProductoSchema = new Schema({
 		required: true
 	},
 	foto: {
-		type: String,
-		required: true
-	},
+		type: String},
 	precio: {
 		type: Number,
 		required: true,

@@ -10,6 +10,10 @@ switch (process.env.DB) {
     case 'archivo':
         productsDAO = require('../src/daos/productos/ProductosDaoArchivo')
         break
+    case 'Firebase':
+        productsDAO = require('../src/daos/productos/ProductosDaoFirebase')
+        break
+
 }
 
 const getProducts = async (req, res, next) => {
@@ -19,7 +23,7 @@ const getProducts = async (req, res, next) => {
         if (listProd.length < 1) {
             throw new Error("No hay productos")
         }
-        res.json( listProd )
+        res.json(listProd)
     } catch (error) {
         next(error)
     }
