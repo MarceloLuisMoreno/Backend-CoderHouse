@@ -28,7 +28,9 @@ module.exports = class ContenedorMongo {
     saveAll = async (nuevaLista) => {
         try {
             const newLista = new this.coleccion(nuevaLista)
-            await newLista.save();
+            const save = await newLista.save()
+                .then(res => res)
+            return save
         } catch (error) {
             throw error
         }
@@ -37,10 +39,11 @@ module.exports = class ContenedorMongo {
     getById = async (id) => {
         try {
             const buscado = await this.coleccion.find({
-                _id: {
-                    $eq: id
-                }
-            })
+                    _id: {
+                        $eq: id
+                    }
+                })
+                .then(res => res)
             return buscado
         } catch (error) {
             throw new Error(`Error al listar id: ${error}`)
@@ -56,8 +59,9 @@ module.exports = class ContenedorMongo {
                 timestamp
             };
             const elemen = new this.Modelo(newElemento)
-            await elemen.save()
-            return newElemento
+            const save = await elemen.save()
+                .then(res => res)
+            return save._id
         } catch (error) {
             throw new Error(`Error al guardar: ${error}`)
         }

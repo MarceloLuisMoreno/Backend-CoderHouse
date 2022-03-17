@@ -67,7 +67,7 @@ module.exports = class ContenedorArchivo {
             lista.push(newElemento);
             const nuevaLista = JSON.stringify(lista, null, 2);
             await this.saveAll(nuevaLista);
-            return lista
+            return newId
         } catch (error) {
             throw error
         }

@@ -46,10 +46,9 @@ const getProduct = async (req, res, next) => {
 const saveProduct = async (req, res, next) => {
     try {
         const newProduct = req.body
-        await productsDAO.saveElement(newProduct)
-            .then((resolve) => {
-                res.json('Se grabó correctamente')
-            })
+        const saveId = await productsDAO.saveElement(newProduct)
+            .then(res => res)
+        await res.json(`El Producto se agrego con éxito. Id: ${saveId}`)
     } catch (error) {
         next(error)
     }
