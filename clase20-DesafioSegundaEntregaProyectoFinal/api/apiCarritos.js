@@ -11,13 +11,13 @@ switch (process.env.DB) {
 		productsDAO = require('../src/daos/productos/ProductosDaoMongoDB')
 		cartDAO = require('../src/daos/carritos/CarritosDaoMongoDB')
 		break
-	case 'archivo':
-		cartDAO = require('../src/daos/carritos/CarritosDaoArchivo')
-		productsDAO = require('../src/daos/productos/ProductosDaoArchivo')
-		break
 	case 'Firebase':
 		cartDAO = require('../src/daos/carritos/CarritosDaoFirebase')
 		productsDAO = require('../src/daos/productos/ProductosDaoFirebase')
+		break
+	default:
+		cartDAO = require('../src/daos/carritos/CarritosDaoArchivo')
+		productsDAO = require('../src/daos/productos/ProductosDaoArchivo')
 		break
 }
 

@@ -96,11 +96,8 @@ module.exports = class ContenedorArchivo {
         try {
             let lista = await this.getAll()
                 .then((resolve) => resolve)
-                .catch((error) => {
-                    throw error
-                })
             const index = lista.findIndex(elemento => elemento.id == id);
-            if (index != -1) {
+            if (index >= 0) {
                 const {
                     nombre,
                     descripcion,
@@ -123,7 +120,8 @@ module.exports = class ContenedorArchivo {
                 await this.saveAll(nuevaListaJson);
                 return void(0)
             } else {
-                return null
+                throw new Error("Producto no existe.")
+
             }
         } catch (error) {
             throw error
@@ -171,7 +169,7 @@ module.exports = class ContenedorArchivo {
                     await this.saveAll(newCartJson)
                     return void(0)
                 } else {
-                    return null
+                    throw new Error(`Producto  ${idProd} no está en carrito.`)
                 }
             }
         } catch (error) {

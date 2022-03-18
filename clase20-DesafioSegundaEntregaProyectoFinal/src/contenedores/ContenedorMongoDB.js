@@ -36,7 +36,7 @@ module.exports = class ContenedorMongo {
             if (buscado.length === 0) return null
             else return buscado
         } catch (error) {
-            throw new Error(`Error al listar id: ${error}`)
+            throw new Error(`Error no se ecuentra id: ${id}`)
         }
     };
 
@@ -64,8 +64,8 @@ module.exports = class ContenedorMongo {
                     $eq: id
                 }
             })
-            if (!borrado.modifieCount)
-                throw next(error)
+            if (borrado.modifieCount === 0)
+                throw new Error(`en id: ${id}`)
             else return void(0)
         } catch (error) {
             throw new Error(`Error al borrar id: ${error}`)
@@ -97,12 +97,12 @@ module.exports = class ContenedorMongo {
                     stock: stock
                 }
             })
-            if (!modificado.modifieCount)
-                throw next(error)
+            if (modificado.modifieCount === 0 || !modificado.modifieCount)
+                throw new Error(`Error al actualizar id: ${id}`)
             else return void(0)
 
         } catch (error) {
-            throw new Error(`Error al actualizar id: ${error}`)
+            throw error
         }
     };
 
@@ -128,23 +128,24 @@ module.exports = class ContenedorMongo {
 
     deleteProductCart = async (id, idProd) => {
         try {
-
             const carrito = await this.getById(id)
             let productos = await carrito[0].productos
-            const newProductos = productos.filter(product => product._id != idProd)
-            carrito.productos = newProductos
-            const borrado = await this.coleccion.updateOne({
-                _id: id
-            }, {
-                $set: {
-                    productos: carrito.productos
-                }
-            })
-            if (!borrado.modifieCount)
-                throw next(error)
-            else return void(0)
+            const indexProd = productos.findIndex(idProduc => idProduc._id == idProd)
+            if (indexProd != -1) {
+                const newProductos = productos.filter(product => product._id != idProd)
+                carrito.productos = newProductos
+                const borrar = await this.coleccion.updateOne({
+                    _id: id
+                }, {
+                    $set: {
+                        productos: carrito.productos
+                    }
+                })
+                return void(0)
+            } else
+                throw new Error(`Error al borrar Producto id: ${idProd}, del carrito ${id}.`)
         } catch (error) {
-            throw new Error(`Error al borrar: ${error}`)
+            throw error
         }
     }
 

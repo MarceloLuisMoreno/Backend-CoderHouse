@@ -90,24 +90,14 @@
     "stock": 30
   },
   {
-    "id": 13,
-    "timestamp": "15/3/2022 13:03:46",
-    "nombre": "Reglas",
-    "descripcion": "Regla y escuadra de 15 ctms",
-    "codigo": 7005055,
-    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-512.png",
-    "precio": 295,
-    "stock": 30
-  },
-  {
     "id": 14,
-    "timestamp": "15/3/2022 13:05:48",
-    "nombre": "Reglas",
-    "descripcion": "Regla y escuadra de 15 ctms",
-    "codigo": 7005055,
-    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-512.png",
-    "precio": 295,
-    "stock": 30
+    "timestamp": "17/3/2022 19:54:49",
+    "nombre": "Lapicera Azul",
+    "descripcion": "Lapicera Negra trazo fino marca Vic",
+    "codigo": "722585",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/pencil-pen-stationery-school-256.png",
+    "precio": 95,
+    "stock": 500
   },
   {
     "id": 15,
@@ -128,5 +118,25 @@
     "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-512.png",
     "precio": 2556695,
     "stock": 30
+  },
+  {
+    "id": 17,
+    "timestamp": "17/3/2022 19:54:02",
+    "nombre": "Lapicera Azul",
+    "descripcion": "Lapicera azul trazo fino marca Vic",
+    "codigo": "722585",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/pencil-pen-stationery-school-256.png",
+    "precio": 95,
+    "stock": 500
+  },
+  {
+    "id": 18,
+    "timestamp": "17/3/2022 23:01:11",
+    "nombre": "impresora laser",
+    "descripcion": "Regla  de 15 ctms",
+    "codigo": 7005055,
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-512.png",
+    "precio": 15250,
+    "stock": 1
   }
 ]

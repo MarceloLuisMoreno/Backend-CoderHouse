@@ -7,13 +7,12 @@ switch (process.env.DB) {
     case 'mongoDB':
         productsDAO = require('../src/daos/productos/ProductosDaoMongoDB')
         break
-    case 'archivo':
-        productsDAO = require('../src/daos/productos/ProductosDaoArchivo')
-        break
     case 'Firebase':
         productsDAO = require('../src/daos/productos/ProductosDaoFirebase')
         break
-
+    default:
+        productsDAO = require('../src/daos/productos/ProductosDaoArchivo')
+        break
 }
 
 const getProducts = async (req, res, next) => {

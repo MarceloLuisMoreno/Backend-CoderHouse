@@ -61,11 +61,11 @@ module.exports = class ContenedorFirebase {
                     productos: doc.data().productos
                 }
             } else {
-                throw new Error('No se encontro.')
+                throw new Error(`Error al listar id: ${id}`)
             }
             return response
         } catch (error) {
-            throw new Error(`Error al listar id: ${error}`)
+            throw error
         }
     };
 
@@ -99,6 +99,7 @@ module.exports = class ContenedorFirebase {
         try {
             const newTimestamp = new Date()
             const timestamp = newTimestamp.toLocaleString()
+            newElemento.timestamp = timestamp
             await this.query.doc(`${id}`).update(newElemento)
             return void(0)
         } catch (error) {
@@ -131,9 +132,9 @@ module.exports = class ContenedorFirebase {
                 carrito.productos = newProductos
                 await this.query.doc(`${id}`).update(carrito)
                 return void(0)
-            } else throw new Error('Producto no existe.')
+            } else throw new Error(`Error al borrar Producto id: ${idProd}, del carrito ${id}`)
         } catch (error) {
-            throw new Error(`Error al borrar: ${error}`)
+            throw error
         }
     }
 
