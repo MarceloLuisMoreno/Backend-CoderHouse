@@ -7,14 +7,12 @@ const denormalize = normalizr.denormalize;
 const schema = normalizr.schema;
 
 // TP Normalizr
-// TP Normalizr
 //author
 const schemaAuthor = new schema.Entity('author', {}, {
     idAttribute: 'mail'
 })
 // Mensaje
 const schemaMensaje = new schema.Entity('mensaje', { author: schemaAuthor }, { idAttribute: 'id' })
-
 // Mensajes
 const schemaMensajes = new schema.Entity('mensajes', { mensajes: [schemaMensaje] }, { idAttribute: 'id' })
 

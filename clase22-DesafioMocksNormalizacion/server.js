@@ -85,29 +85,27 @@ io.on('connection', async socket => {
 	//*****MENSAJES*****
 	//Envío la lista de mensajes guardados al Cliente
 	let messages = await contenedorMessages.getAll();
-	let messagesNormalizr = normalize(messages, schemaMensajes)
-	console.log('mensajes: ', messages)
-	console.log('mensajes normalizr: ', messagesNormalizr)
-
+	const messagesID = {
+		id: "mensajes",
+		mensajes: [ messages] }
+	let messagesNormalizr = normalize(messagesID, schemaMensajes)
 	socket.emit('messages', messagesNormalizr)
+//	socket.emit('messages', messages)
 
 
 	// Escucho los mensajes enviados por el cliente (uso async por los métodos asincrónicos de la clase Contenedor) y se los propago a todos
 	socket.on('newMessage', async message => {
 		await contenedorMessages.saveAll(message)
 		let messages = await contenedorMessages.getAll()
-		let messagesNormalizr = normalize(messages, schemaMensajes)
-		console.log('mensajes: ', messages)
-		console.log('mensajes normalizr: ', messagesNormalizr)
+		const messagesID = {
+			id: "mensajes",
+			mensajes: [ messages] }
+	
+		let messagesNormalizr = normalize(messagesID, schemaMensajes)
 
-
-
-		/* 		message.date = (new Date()).toLocaleString("en-ES")
-				console.log(`Nuevo Mensaje: ${JSON.stringify(message)}`)
-				await GuardarMensajesNormalizados(message);
-				let messages = await getMensajesNormalizados()
-		 */
 		io.sockets.emit('messages', messagesNormalizr)
+//		io.sockets.emit('messages', message)
+
 	})
 })
 
