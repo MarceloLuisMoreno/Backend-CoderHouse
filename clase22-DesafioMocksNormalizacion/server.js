@@ -6,15 +6,7 @@ const {
 const {
 	Server: IOServer
 } = require("socket.io")
-const {
-	promises: fs
-} = require('fs');
 
-//  Normalizr 
-const normalizr = require("normalizr");
-const normalize = normalizr.normalize;
-const denormalize = normalizr.denormalize;
-const schema = normalizr.schema;
 
 
 const app = express()
@@ -22,6 +14,12 @@ const httpServer = new HttpServer(app) //levanta la aplicacion al server - creo 
 const io = new IOServer(httpServer) //se base en la aplicacion levantada por el server = le paso el servidor sobre el que se va ha trabajar.
 const productosRouter = require('./src/routers/productosRouter')
 const productosTestRouter = require('./src/routers/productosTestRouter')
+
+//  Normalizr 
+const normalizr = require("normalizr");
+const normalize = normalizr.normalize;
+const denormalize = normalizr.denormalize;
+const schema = normalizr.schema;
 
 app.use(express.json())
 app.use(express.urlencoded({
@@ -53,15 +51,8 @@ const schemaAuthor = new schema.Entity('author', {}, {
 })
 // Mensaje
 const schemaMensaje = new schema.Entity('mensaje', { author: schemaAuthor }, { idAttribute: 'id' })
-
 // Mensajes
 const schemaMensajes = new schema.Entity('mensajes', { mensajes: [schemaMensaje] }, { idAttribute: 'id' })
-
-
-
-
-
-
 
 
 

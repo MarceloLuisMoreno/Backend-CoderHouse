@@ -18,7 +18,7 @@ const schemaMensaje = new schema.Entity('mensaje', { author: schemaAuthor }, { i
 // Mensajes
 const schemaMensajes = new schema.Entity('mensajes', { mensajes: [schemaMensaje] }, { idAttribute: 'id' })
 
-
+console.log('entre a main')
 
 //Función para testear que ingrese una cadena de email
 function testmail(mail) {
@@ -58,9 +58,6 @@ function SendMesage() {
     document.getElementById('mensaje').value = "";
     return false;
 }
-
-
-
 
 
 //Emito los mensajes usando una plantilla Handlebars
