@@ -47,12 +47,20 @@ const contenedorMessages = new ContenedorMensajes('./public/data/messages.json')
 // TP Normalizr
 //author
 const schemaAuthor = new schema.Entity('author', {}, {
-    idAttribute: 'mail'
+	idAttribute: 'mail'
 })
 // Mensaje
-const schemaMensaje = new schema.Entity('mensaje', { author: schemaAuthor }, { idAttribute: 'id' })
+const schemaMensaje = new schema.Entity('mensaje', {
+	author: schemaAuthor
+}, {
+	idAttribute: 'id'
+})
 // Mensajes
-const schemaMensajes = new schema.Entity('mensajes', { mensajes: [schemaMensaje] }, { idAttribute: 'id' })
+const schemaMensajes = new schema.Entity('mensajes', {
+	mensajes: [schemaMensaje]
+}, {
+	idAttribute: 'id'
+})
 
 
 
@@ -81,31 +89,24 @@ io.on('connection', async socket => {
 			})
 	})
 
-
 	//*****MENSAJES*****
 	//Envío la lista de mensajes guardados al Cliente
-	let messages = await contenedorMessages.getAll();
-	const messagesID = {
-		id: "mensajes",
-		mensajes: [ messages] }
-	let messagesNormalizr = normalize(messagesID, schemaMensajes)
+	let messages = await contenedorMessages.getMessages();
+	let messagesNormalizr = normalize(messages, schemaMensajes)
 	socket.emit('messages', messagesNormalizr)
-//	socket.emit('messages', messages)
 
 
-	// Escucho los mensajes enviados por el cliente (uso async por los métodos asincrónicos de la clase Contenedor) y se los propago a todos
+
+	// Escucho los mensajes enviados por el cliente y se los propago a todos
 	socket.on('newMessage', async message => {
-		await contenedorMessages.saveAll(message)
-		let messages = await contenedorMessages.getAll()
-		const messagesID = {
+		await contenedorMessages.saveMessages(message)
+		let messages = await contenedorMessages.getMessages()
+		const messagesId = {
 			id: "mensajes",
-			mensajes: [ messages] }
-	
-		let messagesNormalizr = normalize(messagesID, schemaMensajes)
-
+			mensajes: [messages]
+		}
+		let messagesNormalizr = normalize(messagesId, schemaMensajes)
 		io.sockets.emit('messages', messagesNormalizr)
-//		io.sockets.emit('messages', message)
-
 	})
 })
 

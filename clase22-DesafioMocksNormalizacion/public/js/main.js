@@ -1,5 +1,6 @@
 // Mi cliente
 const socket = io.connect();
+/* 
 //  Normalizr 
 const normalizr = require("normalizr");
 const normalize = normalizr.normalize;
@@ -12,11 +13,18 @@ const schemaAuthor = new schema.Entity('author', {}, {
     idAttribute: 'mail'
 })
 // Mensaje
-const schemaMensaje = new schema.Entity('mensaje', { author: schemaAuthor }, { idAttribute: 'id' })
+const schemaMensaje = new schema.Entity('mensaje', {
+    author: schemaAuthor
+}, {
+    idAttribute: 'id'
+})
 // Mensajes
-const schemaMensajes = new schema.Entity('mensajes', { mensajes: [schemaMensaje] }, { idAttribute: 'id' })
+const schemaMensajes = new schema.Entity('mensajes', {
+    mensajes: [schemaMensaje]
+}, {
+    idAttribute: 'id'
+}) */
 
-console.log('entre a main')
 
 //Función para testear que ingrese una cadena de email
 function testmail(mail) {
@@ -31,7 +39,7 @@ function testmail(mail) {
 //Capturo el evento input MENSAJES y le sumo la fecha
 function SendMesage() {
 
-    if (document.getElementById('id').value == "" ||
+    if (document.getElementById('mail').value == "" ||
         document.getElementById('nombre').value == "" ||
         document.getElementById('apellido').value == "" ||
         document.getElementById('edad').value == "" ||
@@ -41,16 +49,18 @@ function SendMesage() {
         alert("Campos Incompletos")
         return false
     }
+    const date = new Date()
     const mensaje = {
         author: {
-            id: document.getElementById('id').value,
+            mail: document.getElementById('mail').value,
             nombre: document.getElementById('nombre').value,
             apellido: document.getElementById('apellido').value,
             edad: document.getElementById('edad').value,
             alias: document.getElementById('alias').value,
             avatar: document.getElementById('avatar').value
         },
-        text: document.getElementById('mensaje').value
+        text: document.getElementById('mensaje').value,
+        date: date.toLocaleString(),
     }
     socket.emit('newMessage', mensaje);
     document.getElementById('mensaje').value = "";
@@ -63,14 +73,15 @@ const tableMessages = async messages => {
     const template = await fetch('../viewsHBS/messages.hbs');
     const templateText = await template.text();
     const templateHbs = Handlebars.compile(templateText);
-    const html = templateHbs({ messages });
+    const html = templateHbs({
+        messages
+    });
     return html
 };
 socket.on('messages', messages => {
-    console.log(messages)
-    const denormalizedData = denormalize(messages.result, schemaMensajes, messages.entities)
-    const newMessage = denormalizedData.mensajes
-    tableMessages(newMessage)
+/*       const denormalizedData = denormalize(messages.result, schemaMensajes, messages.entities)
+      const newMessage = denormalizedData.mensajes 
+ */    tableMessages(messages)
         .then(html => document.getElementById('tableMessages').innerHTML = html);
 });
 
@@ -92,12 +103,13 @@ const tableHandlebars = async products => {
     const template = await fetch('../viewsHBS/products.hbs');
     const templateText = await template.text();
     const templateHbs = Handlebars.compile(templateText);
-    const html = templateHbs({ products });
+    const html = templateHbs({
+        products
+    });
     return html
 };
 
 socket.on('products', products => {
     tableHandlebars(products)
-        .then(html => document.getElementById('tableProducts').innerHTML = html)
-        ;
+        .then(html => document.getElementById('tableProducts').innerHTML = html);
 });

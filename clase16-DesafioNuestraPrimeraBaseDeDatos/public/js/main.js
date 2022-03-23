@@ -31,7 +31,9 @@ const tableMessages = async messages => {
     const template = await fetch('../viewsHBS/messages.hbs');
     const templateText = await template.text();
     const templateHbs = Handlebars.compile(templateText);
-    const html = templateHbs({ messages });
+    const html = templateHbs({
+        messages
+    });
     return html
 };
 socket.on('messages', messages => {
@@ -57,12 +59,13 @@ const tableHandlebars = async products => {
     const template = await fetch('../viewsHBS/products.hbs');
     const templateText = await template.text();
     const templateHbs = Handlebars.compile(templateText);
-    const html = templateHbs({ products });
+    const html = templateHbs({
+        products
+    });
     return html
 };
 
 socket.on('products', products => {
     tableHandlebars(products)
-        .then(html => document.getElementById('tableProducts').innerHTML = html)
-        ;
+        .then(html => document.getElementById('tableProducts').innerHTML = html);
 });
