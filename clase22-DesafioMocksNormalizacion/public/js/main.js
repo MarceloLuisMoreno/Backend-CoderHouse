@@ -1,9 +1,7 @@
 // Mi cliente
 const socket = io.connect();
-/* 
+
 //  Normalizr 
-const normalizr = require("normalizr");
-const normalize = normalizr.normalize;
 const denormalize = normalizr.denormalize;
 const schema = normalizr.schema;
 
@@ -23,7 +21,7 @@ const schemaMensajes = new schema.Entity('mensajes', {
     mensajes: [schemaMensaje]
 }, {
     idAttribute: 'id'
-}) */
+})
 
 
 //Función para testear que ingrese una cadena de email
@@ -79,9 +77,9 @@ const tableMessages = async messages => {
     return html
 };
 socket.on('messages', messages => {
-/*       const denormalizedData = denormalize(messages.result, schemaMensajes, messages.entities)
-      const newMessage = denormalizedData.mensajes 
- */    tableMessages(messages)
+    const denormalizedData = denormalize(messages.result, schemaMensajes, messages.entities)
+    const newMessages = denormalizedData.mensajes
+    tableMessages(newMessages)
         .then(html => document.getElementById('tableMessages').innerHTML = html);
 });
 
