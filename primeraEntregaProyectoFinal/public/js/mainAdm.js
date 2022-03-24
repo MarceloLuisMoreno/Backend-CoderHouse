@@ -101,6 +101,7 @@ fetch(API_URLcarrito, {
 
 //Funcion render para inyectar los card de productos en el HTML
 function renderCarrito(data) {
+    console.log('estoy en admin: ',data)
     const html = data
         .map((elem, index) => {
             let html = `<div>

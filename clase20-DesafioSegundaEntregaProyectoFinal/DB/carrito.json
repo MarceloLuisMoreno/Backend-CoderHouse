@@ -14,6 +14,16 @@
         "stock": 100
       },
       {
+        "id": 5,
+        "timestamp": "6/2/2022 22:27:29",
+        "nombre": "Cuaderno Rivadavia",
+        "descripcion": "Cuaderno tapa dura de 100 hojas, marca Rivadavia.",
+        "codigo": "300325",
+        "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/book-note-paper-school-256.png",
+        "precio": "395",
+        "stock": "10"
+      },
+      {
         "id": 4,
         "timestamp": "6/2/2022 22:26:20",
         "nombre": "Acuarelas",
@@ -22,16 +32,6 @@
         "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/paint-color-pallete-brush-academy-256.png",
         "precio": "295",
         "stock": "25"
-      },
-      {
-        "id": 18,
-        "timestamp": "17/3/2022 23:01:11",
-        "nombre": "impresora laser",
-        "descripcion": "Regla  de 15 ctms",
-        "codigo": 7005055,
-        "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-512.png",
-        "precio": 15250,
-        "stock": 1
       }
     ]
   },
@@ -68,6 +68,16 @@
         "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-512.png",
         "precio": "195",
         "stock": "30"
+      },
+      {
+        "id": 11,
+        "timestamp": "14/2/2022 08:27:43",
+        "nombre": "Pizarra",
+        "descripcion": "Pizarra blanca de 60 cmts de ancho x 40 cmts de alto.",
+        "codigo": "600400",
+        "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/board-math-class-school-256.png",
+        "precio": "3950",
+        "stock": "5"
       }
     ]
   },
@@ -86,6 +96,16 @@
         "stock": "30"
       },
       {
+        "id": 10,
+        "timestamp": "7/2/2022 21:13:13",
+        "nombre": "Globo terráqueo",
+        "descripcion": "Globo terráqueo, de 40 cmts de altura. ",
+        "codigo": "300325",
+        "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png",
+        "precio": "3950",
+        "stock": "5"
+      },
+      {
         "id": 5,
         "timestamp": "7/2/2022 09:19:49",
         "nombre": "Cuaderno Rivadavia",
@@ -94,22 +114,6 @@
         "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/book-note-paper-school-256.png",
         "precio": "395",
         "stock": "10"
-      }
-    ]
-  },
-  {
-    "id": 4,
-    "timestamp": "17/3/2022 10:49:05",
-    "productos": [
-      {
-        "id": 17,
-        "timestamp": "17/3/2022 10:45:23",
-        "nombre": "Reglassssssssssssssss y mas y mas",
-        "descripcion": "Regla  de 15 ctms",
-        "codigo": 7005055,
-        "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-512.png",
-        "precio": 200055,
-        "stock": 300
       }
     ]
   }

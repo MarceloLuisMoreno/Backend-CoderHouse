@@ -28,9 +28,7 @@ const getCarritos = async (req, res, next) => {
 		if (listCarritos.length < 1) {
 			throw new Error("No hay carritos.")
 		}
-		res.json({
-			'Carritos': listCarritos,
-		})
+		res.json(listCarritos)
 	} catch (error) {
 		next(error)
 	}
