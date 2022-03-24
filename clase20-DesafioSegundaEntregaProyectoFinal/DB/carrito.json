@@ -96,16 +96,6 @@
         "stock": "30"
       },
       {
-        "id": 10,
-        "timestamp": "7/2/2022 21:13:13",
-        "nombre": "Globo terráqueo",
-        "descripcion": "Globo terráqueo, de 40 cmts de altura. ",
-        "codigo": "300325",
-        "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png",
-        "precio": "3950",
-        "stock": "5"
-      },
-      {
         "id": 5,
         "timestamp": "7/2/2022 09:19:49",
         "nombre": "Cuaderno Rivadavia",

@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const apiProductos = require('../../api/apiProductos')
+const apiProductos = require('../api/apiProductos')
 const middlewares = require('../utils/middlewares')
 const validations = require('../utils/validations')
 

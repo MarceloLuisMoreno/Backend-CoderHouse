@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const apiCarritos = require('../../api/apiCarritos')
+const apiCarritos = require('../api/apiCarritos')
 
 /* GET: '/' - Lista todos los carritos. */
 router.get("/", apiCarritos.getCarritos)
