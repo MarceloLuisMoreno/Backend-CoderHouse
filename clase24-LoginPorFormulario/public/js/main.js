@@ -23,7 +23,6 @@ const schemaMensajes = new schema.Entity('mensajes', {
     idAttribute: 'id'
 })
 
-
 //Función para testear que ingrese una cadena de email
 function testmail(mail) {
     try {
@@ -76,7 +75,6 @@ const tableMessages = async messages => {
     });
     return html
 };
-
 socket.on('messages', messages => {
     const denormalizedData = denormalize(messages.result, schemaMensajes, messages.entities)
     const newMessages = denormalizedData.mensajes

@@ -164,7 +164,7 @@ console.log('\nLongitud objeto original: ', longO)
 console.log('\nLongitud objeto normalizado: ', longN)
 console.log('\nLongitud objeto desnormalizado: ', longD)
 
-const porcentaje = (longN*100)/longD
+const porcentaje = (longN*100)/longO
 console.log(`\nPorcentaje Optimizado: ${porcentaje.toFixed(2)} %`);
 
 console.log(denormalizedData.mensajes)

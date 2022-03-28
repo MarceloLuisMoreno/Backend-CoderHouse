@@ -16,14 +16,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
         integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-     <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
- 
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"></script>
+
 </head>
 
 <body class="p-5">
+
+
+    <!-- Bienvenida de usuario -->
+    <div class="container mt-3" id="bienvenida">
+        <div class="rounded p-3" style="background-color: rgb(156, 221, 159);">
+
+            <h1 style="color: green">Bienvenido, <%= nombre %> <a class="btn btn-warning float-right"
+                        href='/logout'>Desloguearse</a>
+            </h1>
+        </div>
+    </div>
+
+    <!-- Ingreso de Productos en formulario -->
     <div class="container">
-        <!-- Ingreso de Productos en formulario -->
-        <div class="jumbotron">
+        <div class="jumbotron p-3">
             <h1 style="color: blue;">Ingrese Producto</h1>
             <br>
             <form id="formProduct" onsubmit="return addProduct(this)">
@@ -42,10 +54,11 @@
                 <button class="btn btn-success mt-3 mb-5">Enviar</button>
             </form>
             <!-- Vista de los Productos -->
-            <h2 style="color:blue">Vista de Productos</h2>
+            <h2 style="color:red">Lista de Productos</h2>
             <br>
             <div id="tableProducts"></div>
         </div>
+
         <!-- Centro de Mensajes -->
         <form id="Chat" onsubmit="SendMesage(); return false;" class="border border-primary p-3 mb-3 rounded jumbotron">
             <h2 style="color: blue;">Centro de Mensajes (Compresión: <span id="compresion-info"></span>%)</h2>
@@ -62,7 +75,6 @@
             <div class="mb-3 col-2">
                 <input type="text" id="edad" name="edad" class="form-control" placeholder="edad" />
             </div>
-
             <div class="mb-3 col-4">
                 <input type="text" id="alias" name="alias" class="form-control" placeholder="alias" />
             </div>
