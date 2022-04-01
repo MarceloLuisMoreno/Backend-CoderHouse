@@ -1,0 +1,79 @@
+    <!-- Bienvenida de usuario -->
+    <div class="container mt-3" id="bienvenida">
+        <div class="rounded p-3" style="background-color: rgb(156, 221, 159);">
+
+            <h1 style="color: green">Bienvenido, {{nombre}} <a class="btn btn-warning float-right"
+                        href='/logout'>Desloguearse</a>
+            </h1>
+        </div>
+    </div>
+
+    <!-- Ingreso de Productos en formulario -->
+    <div class="container">
+        <div class="jumbotron p-3">
+            <h1 style="color: blue;">Ingrese Producto</h1>
+            <br>
+            <form id="formProduct" onsubmit="return addProduct(this)">
+                <div class="form-group">
+                    <label for="name"><b>Nombre</b></label>
+                    <input id="title" class="form-control" type="text" name="name" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="price"><b>Precio</b></label>
+                    <input id="price" class="form-control" type="number" step="0.01" name="price" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="thumbnail"><b>Foto URL</b></label>
+                    <input id="thumbnail" class="form-control" type="url" name="thumbnail" required="required">
+                </div>
+                <button class="btn btn-success mt-3 mb-5">Enviar</button>
+            </form>
+            <!-- Vista de los Productos -->
+            <h2 style="color:red">Lista de Productos</h2>
+            <br>
+            <div id="tableProducts"></div>
+        </div>
+
+        <!-- Centro de Mensajes -->
+        <form id="Chat" onsubmit="SendMesage(); return false;" class="border border-primary p-3 mb-3 rounded jumbotron">
+            <h2 style="color: blue;">Centro de Mensajes (Compresión: <span id="compresion-info"></span>%)</h2>
+            <h3>Autor</h3>
+            <div class="mb-3 col-5">
+                <input type="email" id="mail" name="mail" class="form-control" placeholder="Tu email" />
+            </div>
+            <div class="mb-3 col-5">
+                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="nombre" />
+            </div>
+            <div class="mb-3 col-5">
+                <input type="text" id="apellido" name="apellido" class="form-control" placeholder="apellido" />
+            </div>
+            <div class="mb-3 col-2">
+                <input type="text" id="edad" name="edad" class="form-control" placeholder="edad" />
+            </div>
+            <div class="mb-3 col-4">
+                <input type="text" id="alias" name="alias" class="form-control" placeholder="alias" />
+            </div>
+            <div class="mb-3 col-5">
+                <input type="text" id="avatar" name="avatar" class="form-control" placeholder="avatar" />
+            </div>
+
+            <h3>Conversacion:</h3>
+            <div class="mb-3">
+                <div id="tableMessages"></div>
+            </div>
+
+            <h3>Mensaje:</h3>
+            <div class="row g-3 mb-3">
+                <div class="col-10">
+                    <input type="text" id="mensaje" name="mensaje" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+            <div class="mb-3">
+
+            </div>
+        </form>
+        
+<script src="js/main.js"></script>
