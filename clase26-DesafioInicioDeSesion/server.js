@@ -4,6 +4,7 @@ const path = require("path");
 const exphbs = require("express-handlebars")
 const MongoStore = require("connect-mongo")
 const cookieParser = require('cookie-parser')
+const passport = require("passport")
 
 
 const {
@@ -56,6 +57,10 @@ app.use(session({
 		maxAge: 60000
 	}
 }))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 //Defino las bases de datos con las que voy a trabajar
 const {

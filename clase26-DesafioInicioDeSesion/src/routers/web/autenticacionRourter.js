@@ -1,47 +1,76 @@
 const express = require("express")
 const router = express.Router()
 const passport = require("passport")
-const { Strategy: LocalStrategy } = require("passport-local")
-const app = express()
+const {
+    Strategy: LocalStrategy
+} = require("passport-local")
+const bcrypt = require('bcrypt')
+
+/* ========= Configuracion bcrypt =================== */
+const rounds = 12
+
+const hashPassword = (password, rounds) => {
+    const hash = bcrypt.hashSync(password, rounds, (err, hash) => {
+        if (err) {
+            console.error(err)
+            return err
+        }
+        return hash
+    })
+    return hash
+}
+
+const comparePassword = (password, hash) => {
+    const bool = bcrypt.compareSync(password, hash, (err, res) => {
+        if (err) {
+            console.error(err)
+            return false
+        }
+        return res
+    })
+    return bool
+}
 
 /*============================[Base de Datos]============================*/
-const usuariosDB = [];
-
+//const usuariosDB = [];
+const userDAO = require('../../daos/RegisterUserDaoMongoDB')
 
 
 /*----------- Passport -----------*/
-passport.use(new LocalStrategy(
-    (username, password, done) => {
-        //Logica para validar si un usuario existe
-        const existeUsuario = usuariosDB.find(usuario => {
-            return usuario.nombre == username;
-        });
-
-        if (!existeUsuario) {
-            console.log('Usuario no encontrado')
-            return done(null, false);
-        }
-
-        if (!(existeUsuario.password == password)) {
-            console.log('Contraseña invalida')
-            return done(null, false);
-        }
-
-        return done(null, existeUsuario);
+passport.use(new LocalStrategy(async function (nombre, password, done) {
+    let existeUsuario
+    try {
+        existeUsuario = await userDAO.getById(nombre)
+    } catch (err) {
+        throw done(err)
     }
-))
+    if (!existeUsuario) {
+        console.log('Usuario no encontrado')
+        return done(null, false);
+    }
+    const bool = await comparePassword(password, existeUsuario.password)
+    if (bool == false) {
+        console.log('Contraseña invalida')
+        return done(null, false);
+    }
+
+    return done(null, existeUsuario);
+}))
 
 passport.serializeUser((usuario, done) => {
     done(null, usuario.nombre);
 })
 
-passport.deserializeUser((nombre, done) => {
-    const usuario = usuariosDB.find(usuario => usuario.nombre == nombre);
+passport.deserializeUser( async (nombre, done) => {
+    let usuario
+    try {
+        usuario = await userDAO.getById(nombre)
+    } catch (err) {
+        throw done(err)
+    }
     done(null, usuario);
 });
 
-app.use(passport.initialize());
-app.use(passport.session());
 
 /* functions */
 function isAuth(req, res, next) {
@@ -53,10 +82,8 @@ function isAuth(req, res, next) {
 }
 
 
-
-
 //Router de autenticación de sesión
-router.get('/', (req, res)=>{
+router.get('/', (req, res) => {
     if (req.session.nombre) {
         res.redirect('/home')
     } else {
@@ -64,46 +91,67 @@ router.get('/', (req, res)=>{
     }
 })
 
-router.get('/login', (req, res)=>{
+router.get('/login', (req, res) => {
     res.render('login');
 })
 
-router.post('/login', passport.authenticate('local', 
-    {
-        successRedirect: '/home',
-        failureRedirect: '/login-error'
-    }
-))
+router.post('/login', passport.authenticate('local', {
+    successRedirect: '/home',
+    failureRedirect: '/login-error'
+}))
 
-router.get('/login-error', (req, res)=>{
+router.get('/login-error', (req, res) => {
     res.render('login-error');
 })
 
-router.get('/register', (req, res)=>{
+router.get('/register', (req, res) => {
     res.render('register');
 })
 
-router.post('/register', (req, res)=>{
-    const {nombre, password } = req.body;
-    
-    const newUsuario = usuariosDB.find(usuario => usuario.nombre == nombre);
+router.post('/register', async (req, res) => {
+    const {
+        nombre,
+        password
+    } = req.body;
+    let newUsuario = null
+    try {
+        newUsuario = await userDAO.getById(nombre)
+    } catch (err) {
+        throw new Error(err)
+    }
     if (newUsuario) {
         res.render('register-error')
     } else {
-        console.log(nombre, password)
-        usuariosDB.push({nombre, password});
+        const hash = hashPassword(password, rounds)
+        const usuarioData = {
+            nombre,
+            password: hash
+        }
+        try {
+        const graba = await userDAO.saveElement(usuarioData)
+        } catch (err){
+            throw  new Error(err)
+        }
         res.redirect('/login')
     }
 });
 
-router.get('/home', isAuth, (req, res)=>{
-    console.log(req.user)
-    res.render('home', { nombre: req.user.nombre });
+router.get('/home', isAuth, (req, res) => {
+    res.render('home', {
+        nombre: req.user.nombre
+    });
 });
 
-router.get('/logout', (req, res)=>{
+router.get('/fired', (req, res) => {
+    res.render('logout', {
+        nombre: req.user.nombre
+    });
+});
+
+router.get('/logout', (req, res) => {
     req.logOut();
     res.redirect('/');
 });
+
 
 module.exports = router;

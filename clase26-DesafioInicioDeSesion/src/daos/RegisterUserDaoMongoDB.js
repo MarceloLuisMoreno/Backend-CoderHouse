@@ -10,11 +10,11 @@ const UsersSchema = new Schema({
 		type: String,
 		required: true
 	},
-	email: {
+	nombre: {
 		type: String,
 		required: true
 	},
-	contraseña: {
+	password: {
 		type: String,
 		required: true
 	}
@@ -23,7 +23,7 @@ const UsersSchema = new Schema({
 
 const userModel = model(usersCollection, UsersSchema)
 
-const ContenedorMongo = require("../../contenedores/ContenedorMongoDB")
-const UsersDAO = new ContenedorMongo(userModel)
+const ContenedorMongo = require("../contenedores/ContenedorMongoDB")
+const usersDAO = new ContenedorMongo(userModel)
 
-module.exports = productsDAO
+module.exports = usersDAO

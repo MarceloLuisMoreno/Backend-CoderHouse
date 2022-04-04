@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-const config = require('../../config.js')
-const URL = config.mongoLocal.cnxStr
 
+const config = require('../../config')
+const URL = config.mongoRemote.cnxStr
 
 mongoose.connect(URL)
     .then(console.log('Base de datos Mongoose conectada'))
@@ -28,13 +28,14 @@ module.exports = class ContenedorMongo {
     getById = async (id) => {
         try {
             let buscado = await this.coleccion.find({
-                    email: {
+                    nombre: {
                         $eq: id
                     }
                 })
                 .then(res => res)
             if (buscado.length === 0) return null
-            else return buscado
+            else { 
+                return buscado[0] }
         } catch (error) {
             throw new Error(`Error no se ecuentra id: ${id}`)
         }
