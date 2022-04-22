@@ -105,7 +105,7 @@ const {
 const contenedorProductos = new ContenedorSql(knexMySQL, 'products')
 const contenedorMessages = new ContenedorArchivo('./public/data/messages.json')
 
-// Servidor
+// ***** Servidor
 io.on('connection', async socket => {
 	console.log('Un Cliente se ha Conectado!')
 
@@ -146,7 +146,9 @@ io.on('connection', async socket => {
 	})
 })
 
-// CLUSTER MASTER
+
+
+// ***** CLUSTER MASTER
 if (modo == 'cluster' && cluster.isMaster) {
 	console.log(`Número de CPU: ${numCPUs}`)
 	console.log(`PID MASTER ${process.pid}`)
