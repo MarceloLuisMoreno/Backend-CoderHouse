@@ -37,7 +37,9 @@ Incluir también un pequeño documento en donde se detallen los comandos que deb
 
 Ejemplo:
 
-pm2 start ./miservidor.js -- --port=8080 --modo=fork
-pm2 start ./miservidor.js -- --port=8081 --modo=cluster
-pm2 start ./miservidor.js -- --port=8082 --modo=fork
-...
+* pm2 start ./miservidor.js -- --port=8080 --modo=fork
+
+* pm2 start ./miservidor.js -- --port=8081 --modo=cluster
+
+* pm2 start ./miservidor.js -- --port=8082 --modo=fork
+

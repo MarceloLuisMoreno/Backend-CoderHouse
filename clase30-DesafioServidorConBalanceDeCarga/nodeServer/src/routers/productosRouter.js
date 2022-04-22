@@ -7,7 +7,7 @@ const validations = require('../utils/validations')
 //Defino las bases de datos con las que voy a trabajar
 const {
     knexMySQL
-} = require('../../NodeServer/options/dbMySQL');
+} = require('../../options/dbMySQL');
 // Clase contenedor: creo una instancia para productos en la base de datos con tabla products
 const Contenedor = require('../contenedores/ContenedorSQL')
 const contenedorProductos = new Contenedor(knexMySQL, 'products')

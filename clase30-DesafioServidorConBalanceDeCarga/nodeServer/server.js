@@ -14,17 +14,17 @@ const numCPUs = require('os').cpus().length // número de CPUs
 // cargo las configuraciones del sistema de .ENV
 const config = require("./src/utils/config")
 
-/* Recibo argumentos usando MINIMIST para el puerto PORT, en el caso de no recibirlo tomo por defecto el puerto 8080 */
+/* Recibo argumentos usando MINIMIST para el puerto port, en el caso de no recibirlo tomo por defecto el puerto 8080 */
 const options = {
 	default: {
-		PORT: '8080',
+		port: '8080',
 		modo: 'fork'
 	}
 }
 const args = parseArgs(process.argv.slice(2), options)
-const PORT = args.PORT
+const port = args.port
 const modo = args.modo
-
+console.log('Puerto ingresado por argumento: ', args.port)
 const {
 	Server: HttpServer
 } = require("http")
@@ -86,10 +86,10 @@ app.use(passport.session());
 //Defino las bases de datos con las que voy a trabajar
 const {
 	knexMySQL
-} = require('./NodeServer/options/dbMySQL');
+} = require('./options/dbMySQL');
 const {
 	knexSqlite
-} = require('./NodeServer/options/SQLite3');
+} = require('./options/SQLite3');
 
 
 // Clase contenedor: creo una instancia para productos y otra para mensajes. Uso el mismo contenedor para ambas bases de datos.
@@ -174,7 +174,7 @@ if (modo == 'cluster' && cluster.isMaster) {
 	app.use(middlewares.ruteNotFound)
 
 
-	const connectedServer = httpServer.listen(PORT, function () {
+	const connectedServer = httpServer.listen(port, function () {
 		console.log(`Servidor HTTP con Websockets escuchando en el puerto ${connectedServer.address().port}, modo: ${modo} - PID: ${process.pid}`)
 	})
 	connectedServer.on('error', error => console.log(`Error en servidor: ${error}`))

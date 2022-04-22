@@ -15,7 +15,7 @@ noAutorizado = (ruta, metodo) => {
 //Defino las bases de datos con las que voy a trabajar
 const {
     knexMySQL
-} = require('../../NodeServer/options/dbMySQL');
+} = require('../../options/dbMySQL');
 
 const ApiProductosMock = require('../../api/productos.js')
 const apiProductos = new ApiProductosMock(knexMySQL, 'products')
