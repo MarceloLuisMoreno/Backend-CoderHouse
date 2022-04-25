@@ -1,5 +1,7 @@
 # Desafío Servidor con Balance de carga
 
+* NOTA: Para levantar el proyecto debe configurar las variables de entorno, de acuerdo a lo indicado en el archivo: .env.example
+
 ## Consigna
 Tomando con base el proyecto que vamos realizando, agregar un parámetro más en la ruta de comando que permita ejecutar al servidor en modo fork o cluster. Dicho parámetro será 'FORK' en el primer caso y 'CLUSTER' en el segundo, y de no pasarlo, el servidor iniciará en modo fork.
 
