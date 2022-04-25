@@ -2,8 +2,6 @@
 
 process.on('message', msg => {
     let cantidad = msg
-
-    console.log('Cantidad: ', cantidad)
     let numerosAleatorios = []
     for (let i = 0; i <= cantidad; i++) {
         numeroAleatorio = Math.floor((Math.random() * (1000 - 1 + 1)) + 1)
