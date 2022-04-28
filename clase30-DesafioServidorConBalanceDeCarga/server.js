@@ -6,6 +6,8 @@ const MongoStore = require("connect-mongo")
 const cookieParser = require('cookie-parser')
 const passport = require("passport")
 const parseArgs = require("minimist")
+const cluster = require('cluster');
+
 
 // número de CPUs
 const numCPUs = require('os').cpus().length
