@@ -2,6 +2,7 @@ const dotenv = require("dotenv")
 dotenv.config()
 
 const config = {
+    NODE_ENV: process.env.NODE_ENV,
     administrador: Boolean(true),
     mongoLocal: {
         client: 'mongodb',

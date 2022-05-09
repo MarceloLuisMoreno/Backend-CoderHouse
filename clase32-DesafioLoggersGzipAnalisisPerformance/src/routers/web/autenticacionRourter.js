@@ -5,7 +5,6 @@ const {
     Strategy: LocalStrategy
 } = require("passport-local")
 const bcrypt = require('bcrypt')
-const logger = require('../../loggers/logger')
 
 /* ========= Configuracion bcrypt =================== */
 const rounds = 12
@@ -84,7 +83,6 @@ function isAuth(req, res, next) {
 
 //Router de autenticación de sesión
 router.get('/', (req, res) => {
-    logger.info(`Ruta: /, Método: get.`)
     if (req.session.nombre) {
         res.redirect('/home')
     } else {
@@ -93,7 +91,6 @@ router.get('/', (req, res) => {
 })
 
 router.get('/login', (req, res) => {
-    logger.info(`Ruta: /login, Método: get.`)
     res.render('login');
 })
 
@@ -103,17 +100,14 @@ router.post('/login', passport.authenticate('local', {
 }))
 
 router.get('/login-error', (req, res) => {
-    logger.info(`Ruta: /login-error', Método: get.`)
     res.render('login-error');
 })
 
 router.get('/register', (req, res) => {
-    logger.info(`Ruta: /register, Método: get.`)
     res.render('register');
 })
 
 router.post('/register', async (req, res) => {
-    logger.info(`Ruta: /register, Método: post.`)
     const {
         nombre,
         password
@@ -142,21 +136,18 @@ router.post('/register', async (req, res) => {
 });
 
 router.get('/home', isAuth, (req, res) => {
-    logger.info(`Ruta: /home, Método: get.`)
     res.render('home', {
         nombre: req.user.nombre
     });
 });
 
 router.get('/fired', (req, res) => {
-    logger.info(`Ruta: /fired, Método: get.`)
     res.render('logout', {
         nombre: req.user.nombre
     });
 });
 
 router.get('/logout', (req, res) => {
-    logger.info(`Ruta: /logout, Método: get.`)
     req.logOut();
     res.redirect('/');
 });

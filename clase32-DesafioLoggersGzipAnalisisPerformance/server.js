@@ -7,6 +7,8 @@ const cookieParser = require('cookie-parser')
 const passport = require("passport")
 const parseArgs = require("minimist")
 const cluster = require('cluster');
+const logger = require('./src/loggers/logger')
+
 
 // número de CPUs
 const numCPUs = require('os').cpus().length
@@ -146,6 +148,12 @@ io.on('connection', async socket => {
 //Enrutamiento API
 app.use('/api/productos', productosRouter)
 app.use('/api/productos-test', productosTestRouter)
+
+//Middleware a nivel app para capturar todas las request con loggers.info
+app.use((req,res, next) => {
+	logger.info(`Ruta: ${req.path}, Método: ${req.method}`)
+	next()
+})
 
 //Enrutamiento Web
 app.use('', autenticacionRouter)

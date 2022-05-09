@@ -20,11 +20,8 @@ const {
 const ApiProductosMock = require('../../api/productos.js')
 const apiProductos = new ApiProductosMock(knexMySQL, 'products')
 
-const logger = require('../loggers/logger')
-
 //usando Faker.js
 router.get('/', async(req, res, next) => {
-    logger.info(`Ruta: /api/productos-test, Método: get.`)
     try{
         const products = await apiProductos.popular()
         res.json(products)

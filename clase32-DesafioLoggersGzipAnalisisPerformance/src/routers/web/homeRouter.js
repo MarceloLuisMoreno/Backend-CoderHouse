@@ -11,10 +11,7 @@ const numCPUs = require('os').cpus().length
 
 const compression = require('compression')
 
-const logger = require('../../loggers/logger')
-
 router.get('/info', (req, res) => {
-   logger.info(`Ruta: /info, Método: get.`)
    res.render('info', {
       argumentos: process.argv,
       directorio: process.cwd(),
@@ -28,7 +25,6 @@ router.get('/info', (req, res) => {
 })
 
 router.get('/info-log', (req, res) => {
-   logger.info(`Ruta: /info-log, Método: get.`)
    const info = {
       argumentos: process.argv,
       directorio: process.cwd(),
@@ -56,7 +52,6 @@ router.get('/info-log', (req, res) => {
 
 
 router.get('/infozip', compression(), (req, res) => {
-   logger.info(`Ruta: /infozip, Método: get.`)
    res.render('info', {
       argumentos: process.argv,
       directorio: process.cwd(),
@@ -70,7 +65,6 @@ router.get('/infozip', compression(), (req, res) => {
 })
 
 router.get('/api/randoms', (req, res) => {
-   logger.info(`Ruta: /api/randoms, Método: get.`)
 
    let cant = req.query.cant
    if (!cant) cant = 100000000

@@ -17,10 +17,8 @@ const auth = require('../authentication/authentic')
 const ApiProductosMock = require('../../api/productos.js')
 const apiProductos = new ApiProductosMock(knexMySQL, 'products')
 
-const logger = require('../loggers/logger')
 
 router.get("/", auth.usersAuth, async (req, res) => {
-    logger.info(`Ruta: /api/productos/, Método: get.`)
     try {
         res.json(await contenedorProductos.getAll())
     } catch (err) {
@@ -29,7 +27,6 @@ router.get("/", auth.usersAuth, async (req, res) => {
 })
 
 router.get("/:id", auth.usersAuth, async (req, res, next) => {
-    logger.info(`Ruta: /api/productos/${req.params.id}, Método: get.`)
     try {
         res.json(await contenedorProductos.getById(req.params.id))
     } catch (err) {
@@ -38,7 +35,6 @@ router.get("/:id", auth.usersAuth, async (req, res, next) => {
 })
 
 router.post("/", auth.usersAuth, middlewares.isAdmin, validations.validate(validations.validationProduct), async (req, res, next) => {
-    logger.info(`Ruta: /api/productos/, Método: post.`)
     try {
         res.json(await contenedorProductos.saveProduct(req.body))
     } catch (err) {
@@ -47,7 +43,6 @@ router.post("/", auth.usersAuth, middlewares.isAdmin, validations.validate(valid
 })
 
 router.put("/:id", auth.usersAuth, middlewares.isAdmin, validations.validate(validations.validationProduct), async (req, res, next) => {
-    logger.info(`Ruta: /api/productos/${req.params.id}, Método: put.`)
     try {
         res.json(await contenedorProductos.updateById(req.params.id, req.body))
     } catch (err) {
@@ -56,7 +51,6 @@ router.put("/:id", auth.usersAuth, middlewares.isAdmin, validations.validate(val
 })
 
 router.delete("/:id", auth.usersAuth, middlewares.isAdmin, validations.validate(validations.validationProduct), async (req, res, next) => {
-    logger.info(`Ruta: /api/productos/${req.params.id}, Método: delete.`)
     try {
         res.json(await contenedorProductos.deleteById(req.params.id))
     } catch (err) {
