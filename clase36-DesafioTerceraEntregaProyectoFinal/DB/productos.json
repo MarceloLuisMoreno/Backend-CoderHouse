@@ -1,0 +1,132 @@
+[
+  {
+    "id": 1,
+    "timestamp": "14/3/2022 16:17:33",
+    "nombre": "Calculadora",
+    "descripcion": "Calculadora a pila recargable con luz solar.",
+    "codigo": 1000,
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "precio": 650,
+    "stock": 5
+  },
+  {
+    "id": 2,
+    "timestamp": "14/3/2022 16:30:51",
+    "nombre": "Reglas",
+    "descripcion": "Regla y escuadra de 15 ctms",
+    "codigo": "7005a055",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-512.png",
+    "precio": 295,
+    "stock": 30
+  },
+  {
+    "id": 3,
+    "timestamp": "14/3/2022 16:32:25",
+    "nombre": "Lápiz",
+    "descripcion": "Lápiz negro marca Faber Castell mina HB",
+    "codigo": "122585",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/pencil-pen-stationery-school-256.png",
+    "precio": 45,
+    "stock": 50
+  },
+  {
+    "id": 4,
+    "timestamp": "6/2/2022 22:26:20",
+    "nombre": "Acuarelas",
+    "descripcion": "Acuarelas de colores con pincel en estuche de plástico.",
+    "codigo": "3258458",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/paint-color-pallete-brush-academy-256.png",
+    "precio": "295",
+    "stock": "25"
+  },
+  {
+    "id": 5,
+    "timestamp": "14/2/2022 10:25:24",
+    "nombre": "Cuaderno Rivadavia",
+    "descripcion": "Cuaderno tapa dura de 50 hojas, marca Rivadavia.",
+    "codigo": "300320",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/book-note-paper-school-256.png",
+    "precio": "199",
+    "stock": "50"
+  },
+  {
+    "id": 6,
+    "timestamp": "14/3/2022 16:13:42",
+    "nombre": "Cuaderno Rivadavia",
+    "descripcion": "Cuaderno tapa dura de 100 hojas, marca Rivadavia.",
+    "codigo": "30as0325",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/book-note-paper-school-256.png",
+    "precio": "295",
+    "stock": "12"
+  },
+  {
+    "id": 10,
+    "timestamp": "7/2/2022 21:13:13",
+    "nombre": "Globo terráqueo",
+    "descripcion": "Globo terráqueo, de 40 cmts de altura. ",
+    "codigo": "300325",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png",
+    "precio": "3950",
+    "stock": "5"
+  },
+  {
+    "id": 11,
+    "timestamp": "14/2/2022 08:27:43",
+    "nombre": "Pizarra",
+    "descripcion": "Pizarra blanca de 60 cmts de ancho x 40 cmts de alto.",
+    "codigo": "600400",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/board-math-class-school-256.png",
+    "precio": "3950",
+    "stock": "5"
+  },
+  {
+    "id": 14,
+    "timestamp": "17/3/2022 19:54:49",
+    "nombre": "Lapicera Azul",
+    "descripcion": "Lapicera Negra trazo fino marca Vic",
+    "codigo": "722585",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/pencil-pen-stationery-school-256.png",
+    "precio": 95,
+    "stock": 500
+  },
+  {
+    "id": 15,
+    "timestamp": "15/3/2022 13:08:39",
+    "nombre": "Reglas",
+    "descripcion": "Regla y escuadra de 15 ctms",
+    "codigo": 7005055,
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-512.png",
+    "precio": 25595,
+    "stock": 30
+  },
+  {
+    "id": 16,
+    "timestamp": "15/3/2022 13:09:14",
+    "nombre": "Reglas",
+    "descripcion": "Regla y escuadra de 15 ctms",
+    "codigo": 7005055,
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-512.png",
+    "precio": 2556695,
+    "stock": 30
+  },
+  {
+    "id": 17,
+    "timestamp": "17/3/2022 19:54:02",
+    "nombre": "Lapicera Azul",
+    "descripcion": "Lapicera azul trazo fino marca Vic",
+    "codigo": "722585",
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/pencil-pen-stationery-school-256.png",
+    "precio": 95,
+    "stock": 500
+  },
+  {
+    "id": 18,
+    "timestamp": "17/3/2022 23:01:11",
+    "nombre": "impresora laser",
+    "descripcion": "Regla  de 15 ctms",
+    "codigo": 7005055,
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-512.png",
+    "precio": 15250,
+    "stock": 1
+  }
+]
