@@ -27,7 +27,7 @@ const UsersSchema = new Schema({
 		required: true
 	},
 	celular: {
-		type: Number,
+		type: String,
 		required: true
 	},
 	avatar: {

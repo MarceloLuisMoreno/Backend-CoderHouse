@@ -6,7 +6,6 @@ const authToken = config.authToken
 const twilioWhatsapp = config.twilioWhatsapp
 const messagingServiceSid = config.messagingServiceSid
 const contactoAdministrador = config.contactoAdministrador
-const codigoArea = config.codigoAreaCelular
 const logger = require('../loggers/logger')
 
 // cargo las configuraciones nodemailer gmail
@@ -32,7 +31,7 @@ function sms(mensaje,para) {
         .create({
             body: mensaje,
             messagingServiceSid: messagingServiceSid,
-            to: codigoArea+para
+            to: para
         })
         .then(message => logger.info('SMS enviado.'))
         .done();

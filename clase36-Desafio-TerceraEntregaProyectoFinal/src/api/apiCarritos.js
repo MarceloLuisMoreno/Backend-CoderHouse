@@ -149,7 +149,7 @@ const compraProductos = async (req, res, next) => {
 			throw new Error("Carrito no encontrado.")
 		} else {
 			const usuario = await userDAO.getById(cliente)
-			const celular = usuario.celular.toString()
+			const celular = usuario.celular
 			mensajeria.sms(`${usuario.nombre}, su Pedido ha sido recibido y se encuentra en proceso. Gracias por su compra.`,celular)
 			mensaje = `Nuevo Pedido de ${usuario.nombre}, email: ${cliente}.`
 			mensajeria.whatsapp(mensaje)
