@@ -1,9 +1,17 @@
-API_URLproductos = 'http://localhost:8080/api/productos/'
-API_URLcarrito = 'http://localhost:8080/api/carrito/'
-/*============================[Base de Datos]============================*/
+/*=======[defino ruta endpoints]=======*/
+let url = window.location.href
+if (url.includes("localhost"))
+    url = "http://localhost:8080"
+else url = "https://coderhouserterceraentrega.herokuapp.com"
+
+
+API_URLproductos = `${url}/api/productos/`
+API_URLcarrito = `${url}/api/carrito/`
 
 let cookieUsuario = document.cookie.replace('%40', '@')
 let usuario = cookieUsuario.slice(5)
+
+console.log(cookieUsuario,usuario)
 
 //Leo y renderizo el catálogo de productos
 fetch(API_URLproductos, {
@@ -36,17 +44,17 @@ function salirCarritos() {
 function renderProductos(data) {
     const html = data
         .map((elem, index) => {
-            return `<div class="card">
-                        <img class="card-img-top" src="${elem.foto}" alt="Card image cap" width="20">
+            return `<div class="card mt-5 shadow p-3 mb-5 bg-white rounded">
+                        <img class="card-img-top" src="${elem.foto}" alt="Card image cap" width="20px">
                         <div class="card-body">
                             <h5 class="card-title">Id:${elem._id}</h5>
                             <p class="card-text">${elem.nombre}</p>
-                            <p class="card-text">${elem.descripcion}</p>
+                            <p class="card-text"><small>${elem.descripcion}</small></p>
                             <p class="card-text">Código: ${elem.codigo}</p>
                             <p class="card-text">Precio $ ${elem.precio}</p>
                             <p class="card-text">Stock: ${elem.stock}</p>
                         </div>
-                        <button id="producto${elem._id}" class="btn btn-danger btn-sm" onclick="agregoProdCart('${elem._id}')">Agregar Carrito</button>
+                        <button id="producto${elem._id}" class="btn btn-danger btn-sm text-center" onclick="agregoProdCart('${elem._id}')">Agregar Carrito</button>
                     </div>
                     `
         })

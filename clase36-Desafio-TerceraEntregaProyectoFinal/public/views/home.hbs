@@ -6,8 +6,8 @@
         <div class="m-3">
             <button type="button" class="btn btn-warning" onclick="verDatos()">Mis Datos</button>
             <button type="button" class="btn btn-warning" onclick="location.href = '#productos'">Productos</button>
-            <button type="button" class="btn btn-warning" onclick="verCarritos()" = '/fired'">Mi carrito</button>
-            <button type="button" class="btn btn-warning" onclick="location.href = '/fired'">Desloguearse</button>
+            <button type="button" class="btn btn-warning" onclick="verCarritos()">Mi carrito</button>
+            <button type=" button" class="btn btn-warning" onclick="location.href = '/fired'">Desloguearse</button>
         </div>
     </div>
 
@@ -15,10 +15,11 @@
 
 <!-- Vista de los Datos del cliente -->
 <div id="misDatos" class="jumbotron" hidden>
-    <h2 style="color: blue">Vista de mis Datos</h2>
+    <h2 style="color: blue">Mis Datos</h2>
     <br />
     <div>
-        <img src="{{avatar}}" width="50">
+        <img src="{{avatar}}" width=90px>
+
         <h5 class="card-title">Nombre: {{nombre}}</h5>
         <p>Email: {{email}}</p>
         <p>Direccion: {{direccion}}</plass=>
@@ -31,7 +32,7 @@
 
 <!-- Vista del Carrito -->
 <div id="carritos" class="jumbotron" hidden>
-    <h2 style="color: blue"> Mi Carrito </h2>
+    <h2 style="color: blue">Mi Carrito </h2>
     <br />
     <div id="carrito"></div>
     <button id="carritosUser${{id}}" class="btn btn-danger btn-sm" onclick="salirCarritos()">Cerrar</button>
@@ -40,11 +41,10 @@
 
 <!-- Vista de los Productos -->
 <div id="productos" class="jumbotron">
-    <h2 style="color: blue">Vista de Productos</h2>
+    <h2 style="color: blue">Lista de Productos</h2>
     <br />
-    <div id="tableProducts" class="card-columns" style="column-count: 5"></div>
+    <div id="tableProducts" class="card-columns mx-auto" style="column-count: 5"></div>
 </div>
 <br>
-
 
 <script src="js/mainCli.js"></script>

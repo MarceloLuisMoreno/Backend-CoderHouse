@@ -2,21 +2,6 @@
 // cargo las configuraciones del sistema de .ENV
 const config = require('../utils/config')
 
-const nodemailer = require('nodemailer')
-
-const emailUser = config.emailUser
-const emailPass = config.emailPass
-
-// ========= Configuracion Nodemailer con gmail 
-const transporter = nodemailer.createTransport({
-	service: 'gmail',
-	port: 587,
-	auth: {
-		user: emailUser,
-		pass: emailPass
-	}
-});
-
 const mensajeria = require('../utils/mensajeria')
 
 const DataBase = config.DB_app
@@ -153,11 +138,14 @@ const compraProductos = async (req, res, next) => {
 			mensajeria.sms(`${usuario.nombre}, su Pedido ha sido recibido y se encuentra en proceso. Gracias por su compra.`,celular)
 			mensaje = `Nuevo Pedido de ${usuario.nombre}, email: ${cliente}.`
 			mensajeria.whatsapp(mensaje)
-			let listado = 'Detalle del Pedido: '
+			let listado = `<h2 style="color: blue;">Nuevo Pedido de ${usuario.nombre}, email: ${cliente}, el detalle es el siguiente:</h2>
+			<ul>`
 			buscado[0].productos
 				.map((prod, index) => {
-					listado += `${index+1} - Producto: ${prod._id} - ${prod.codigo} - ${prod.nombre} - $ ${prod.precio} *`
+					listado += `<li>${index+1} - Producto: ${prod._id} - ${prod.codigo} - ${prod.nombre} - $ ${prod.precio} </li>`
 				})
+			listado=listado + '</u>'
+			listado=listado + '<h2 style="color: blue;">Nuevo Pedido de la App E-commerce.</h2>'
 			mensajeria.gmail(mensaje,listado)
 			await cartDAO.deleteByCart(cliente)
 				.then((resolve) => {

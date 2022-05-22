@@ -9,7 +9,6 @@ const config = {
     NODE_ENV: process.env.NODE_ENV,
     administrador: Boolean(true),
     contactoAdministrador: process.env.CONTACTO_ADMINISTRADOR,
-    codigoAreaCelular: process.env.CODIGOAREA,
     emailUser: process.env.EMAIL_ADMINISTRADOR,
     emailPass: process.env.EMAIL_PASS,
     mongoLocal: {

@@ -38,8 +38,8 @@ const modo = (args.modo).toUpperCase()
 // Enrutamiento
 const productosRouter = require('./src/routers/productos')
 const carritoRouter = require('./src/routers/carrito')
+const usuariosRouter = require('./src/routers/usuarios')
 const autenticacionRouter = require('./src/routers/web/autenticacionRourter')
-
 
 app.use(express.json())
 app.use(express.urlencoded({
@@ -96,7 +96,7 @@ app.use((req,res, next) => {
 //Enrutamiento API
 app.use('/api/productos', productosRouter)
 app.use('/api/carrito', carritoRouter)
-
+app.use('/api/usuarios', usuariosRouter)
 //Enrutamiento Web
 app.use('', autenticacionRouter)
 

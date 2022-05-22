@@ -1,111 +1,15 @@
 const express = require("express")
 const router = express.Router()
-const passport = require("passport")
 const {
-    Strategy: LocalStrategy
-} = require("passport-local")
-const bcrypt = require('bcrypt')
-const logger = require('../../loggers/logger')
-
-//const nodemailer = require('nodemailer')
-
-
-
-// cargo las configuraciones del sistema de .ENV
-// const config = require("../../utils/config")
+    passport,
+    isAuth,
+    hashPassword
+} = require('../../utils/authorization')
 
 const mensajeria = require('../../utils/mensajeria')
 
-/* const emailUser = config.emailUser
-const emailPass = config.emailPass
-
-// ========= Configuracion Nodemailer con gmail 
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    port: 587,
-    auth: {
-        user: emailUser,
-        pass: emailPass
-    }
-});
- */
-
-
-
-/* ========= Configuracion bcrypt =================== */
-const rounds = 12
-
-const hashPassword = (password, rounds) => {
-    const hash = bcrypt.hashSync(password, rounds, (err, hash) => {
-        if (err) {
-            logger.error(err)
-            return err
-        }
-        return hash
-    })
-    return hash
-}
-
-const comparePassword = (password, hash) => {
-    const bool = bcrypt.compareSync(password, hash, (err, res) => {
-        if (err) {
-            logger.error(err)
-            return false
-        }
-        return res
-    })
-    return bool
-}
-
-/*============================[Base de Datos]============================*/
+//============================[Base de Datos]============================
 const userDAO = require('../../daos/RegisterUserDaoMongoDB')
-
-
-/*----------- Passport -----------*/
-passport.use(new LocalStrategy(async function (email, password, done) {
-    let existeUsuario
-    try {
-        existeUsuario = await userDAO.getById(email)
-    } catch (err) {
-        throw done(err)
-    }
-    if (!existeUsuario) {
-        logger.info('Usuario no encontrado')
-        return done(null, false);
-    }
-    const bool = await comparePassword(password, existeUsuario.password)
-    if (bool == false) {
-        logger.info('Contraseña invalida')
-        return done(null, false);
-    }
-
-    return done(null, existeUsuario);
-}))
-
-passport.serializeUser((usuario, done) => {
-    done(null, usuario.email);
-})
-
-passport.deserializeUser(async (email, done) => {
-    let usuario
-    try {
-        usuario = await userDAO.getById(email)
-    } catch (err) {
-        throw done(err)
-    }
-    done(null, usuario);
-});
-
-
-/* functions */
-function isAuth(req, res, next) {
-    if (req.isAuthenticated()) {
-        next()
-    } else {
-        res.redirect('/login')
-    }
-}
-
 
 //Router de autenticación de sesión
 router.get('/', (req, res) => {
@@ -152,7 +56,7 @@ router.post('/register', async (req, res) => {
     if (newUsuario) {
         res.render('register-error')
     } else {
-        const hash = hashPassword(password, rounds)
+        const hash = hashPassword(password)
         const usuarioData = {
             email,
             nombre,
@@ -168,8 +72,18 @@ router.post('/register', async (req, res) => {
             throw new Error(err)
         }
         const asunto = 'Nuevo Registro'
-        const mensaje = `<h1 style="color: blue;">Se registro un nuevo usuario en la App Ecommerce:  <span style="color: green;"> ${email} </span></h1>`
-        mensajeria.gmail(asunto,mensaje)
+        const mensaje = `<h2 style="color: blue;">Se registro un nuevo usuario en la App Ecommerce:</h2>
+        <ul>
+            <li>Nombre: ${nombre}</li>
+            <li>Email: ${email}</li>
+            <li>Dirección: ${direccion}</li>
+            <li>Edad: ${edad}</li>
+            <li>Teléfono Celular: ${celular}</li>
+            <li>Foto url: ${avatar}</li>
+        </ul>
+        <h2 style="color: blue;">Mensaje desde la App Ecommerce.</h2>
+        `
+        mensajeria.gmail(asunto, mensaje)
         res.redirect('/login')
     }
 });
@@ -189,9 +103,10 @@ router.get('/home', isAuth, (req, res) => {
 });
 
 router.get('/fired', (req, res) => {
-
+    let emailUser = req.user.email 
+    if (!emailUser) emailUser = ''
     res.render('logout', {
-        email: req.user.email 
+        email: emailUser
     });
 });
 

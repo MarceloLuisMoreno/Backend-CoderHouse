@@ -23,7 +23,7 @@ function whatsapp(mensaje) {
             from: from,
             to: to
         })
-        .then(message => logger.info('Whatsapp enviado.',message));
+        .then(message => logger.info('Whatsapp enviado.'));
 }
 
 function sms(mensaje,para) {
