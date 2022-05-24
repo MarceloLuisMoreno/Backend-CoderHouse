@@ -11,7 +11,7 @@ API_URLcarrito = `${url}/api/carrito/`
 let cookieUsuario = document.cookie.replace('%40', '@')
 let usuario = cookieUsuario.slice(5)
 
-console.log(cookieUsuario,usuario)
+console.log(cookieUsuario, usuario)
 
 //Leo y renderizo el catálogo de productos
 fetch(API_URLproductos, {
@@ -24,8 +24,9 @@ fetch(API_URLproductos, {
 //Muestro - cierro  Datos Cliente
 function verDatos() {
     document.getElementById("misDatos").hidden = false;
-    location.href='#misDatos'
+    location.href = '#misDatos'
 }
+
 function salirDatos() {
     document.getElementById("misDatos").hidden = true;
 }
@@ -34,9 +35,10 @@ function salirDatos() {
 function verCarritos() {
     document.getElementById("carritos").hidden = false;
 }
+
 function salirCarritos() {
     document.getElementById("carritos").hidden = true;
-    location.href='#carritos'
+    location.href = '#carritos'
 }
 
 
@@ -70,10 +72,10 @@ fetch(API_URLcarrito + usuario + '/productos', {
     .then(res => res.json())
     .catch(error => console.error('Error:', error))
     .then(response => {
-        if ( response.error === 400 ) {
+        if (response.error === 400) {
             fetch(API_URLcarrito + `${usuario}`, {
                 method: 'POST',
-                })
+            })
         }
         renderCarrito(response)
     })
@@ -136,7 +138,7 @@ function renderCarrito(data) {
 
 
 
-//Funcion elimino productos Carrito
+//Funcion elimino producto Carrito
 function eliminoProductoCarrito(idCarrito, idProd) {
     const params = `${idCarrito}/productos/${idProd}`
     fetch(API_URLcarrito + params, {

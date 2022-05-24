@@ -32,14 +32,14 @@ const options = {
 	}
 }
 const args = parseArgs(process.argv.slice(2), options)
-const port = parseInt(args.port) 
+const port = parseInt(args.port)
 const modo = (args.modo).toUpperCase()
 
 // Enrutamiento
 const productosRouter = require('./src/routers/productos')
 const carritoRouter = require('./src/routers/carrito')
 const usuariosRouter = require('./src/routers/usuarios')
-const autenticacionRouter = require('./src/routers/web/autenticacionRourter')
+const autenticacionRouter = require('./src/routers/web/autenticacionRouter')
 
 app.use(express.json())
 app.use(express.urlencoded({
@@ -59,7 +59,9 @@ app.set('view engine', '.hbs');
 
 //Session Setup
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended:true}));
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
 
 app.use(session({
 	store: MongoStore.create({
@@ -87,7 +89,7 @@ const {
 
 
 // Middleware a nivel app para capturar todas las request con loggers.info
-app.use((req,res, next) => {
+app.use((req, res, next) => {
 	logger.info(`Ruta: ${req.path}, Método: ${req.method}`)
 	next()
 })

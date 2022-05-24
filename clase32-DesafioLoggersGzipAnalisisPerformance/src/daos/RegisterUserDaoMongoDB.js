@@ -4,7 +4,7 @@ const {
 	model
 } = require('mongoose')
 
-const usersCollection = 'users'
+const usersCollection = 'user'
 const UsersSchema = new Schema({
 	timestamp: {
 		type: String,
