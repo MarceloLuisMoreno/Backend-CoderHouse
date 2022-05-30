@@ -12,7 +12,7 @@ module.exports = class ContenedorArchivo {
     getAll = async () => {
         try {
             const lista = await fs.readFile(this.file, 'utf-8');
-            const newLista = await  JSON.parse(lista)
+            const newLista = await JSON.parse(lista)
             return newLista
         } catch (error) {
             return []
@@ -22,8 +22,11 @@ module.exports = class ContenedorArchivo {
 
     saveAll = async (mensaje) => {
         const lista = await this.getAll();
-        let newId = lista.length  + 1
-        const newMensaje = { ...mensaje, id: newId };
+        let newId = lista.length + 1
+        const newMensaje = {
+            ...mensaje,
+            id: newId
+        };
         lista.push(newMensaje);
         const nuevaLista = JSON.stringify(lista, null, 2);
         try {

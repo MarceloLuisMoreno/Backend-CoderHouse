@@ -24,7 +24,7 @@ const options = {
 	}
 }
 const args = parseArgs(process.argv.slice(2), options)
-const port = parseInt(args.port) 
+const port = parseInt(args.port)
 const modo = (args.modo).toUpperCase()
 
 const {
@@ -93,7 +93,7 @@ const {
 
 // Clase contenedor: creo una instancia para productos y otra para mensajes. Uso el mismo contenedor para ambas bases de datos.
 const ContenedorSql = require('./src/contenedores/ContenedorSQL')
-const ContenedorArchivo = require('./src/contenedores/ContenedorArchivo');
+const ContenedorArchivo = require('./src/contenedores/ContenedorArchivo').default;
 const {
 	parse
 } = require("path");
@@ -150,7 +150,7 @@ app.use('/api/productos', productosRouter)
 app.use('/api/productos-test', productosTestRouter)
 
 //Middleware a nivel app para capturar todas las request con loggers.info
-app.use((req,res, next) => {
+app.use((req, res, next) => {
 	logger.info(`Ruta: ${req.path}, Método: ${req.method}`)
 	next()
 })
