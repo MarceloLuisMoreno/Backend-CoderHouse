@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const path = require("path")
-const auth = require('../../authentication/authentic')
+const auth = require('../../middlewares/authentication/authentic')
 const {
    fork
 } = require('child_process')
@@ -33,7 +33,7 @@ router.get('/info-log', (req, res) => {
       sistemaOperativo: process.platform,
       memoria: process.memoryUsage().heapTotal,
       path: process.execPath,
-      procesadores: numCPUs   
+      procesadores: numCPUs
    }
    console.log(info)
 

@@ -1,6 +1,6 @@
 const winston = require('winston')
 // cargo las configuraciones del sistema de .ENV
-const config = require("../../src/config")
+const config = require("../config/config")
 
 const {
   NODE_ENV

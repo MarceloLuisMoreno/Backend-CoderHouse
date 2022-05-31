@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const config = require("../utils/config")
+const config = require("../config")
 
 //Variable booleana administrador
 let administrador = config.administrador

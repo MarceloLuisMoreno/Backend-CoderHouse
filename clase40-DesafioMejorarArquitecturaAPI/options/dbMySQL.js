@@ -1,5 +1,5 @@
 // cargo las configuraciones del sistema de .ENV
-const config = require("../src/config")
+const config = require("../src/config/config")
 
 const knexMySQL = {
     client: 'mysql',

@@ -1,16 +1,16 @@
 const mongoose = require('mongoose')
 
-const config = require('../../src/config')
+const config = require('../config/config')
 const URL = config.mongoRemote.cnxStr
 const logger = require('../loggers/logger')
 
 mongoose.connect(URL)
-    .then(console.log('Base de datos Mongoose conectada'))
+    .then(logger.info('Base de datos Mongoose Atlas conectada'))
     .catch((error) => {
-        console.log(`Error: ${error}`)
+        logger.error(`Error: ${error}`)
     })
 
-module.exports = class ContenedorMongo {
+module.exports = class UsuarioDAOMongoDB {
     constructor(elementModel) {
         this.coleccion = elementModel
         this.Modelo = elementModel

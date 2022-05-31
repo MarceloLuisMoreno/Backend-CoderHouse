@@ -60,7 +60,7 @@ passport.serializeUser((usuario, done) => {
     done(null, usuario.nombre);
 })
 
-passport.deserializeUser( async (nombre, done) => {
+passport.deserializeUser(async (nombre, done) => {
     let usuario
     try {
         usuario = await userDAO.getById(nombre)
@@ -127,9 +127,9 @@ router.post('/register', async (req, res) => {
             password: hash
         }
         try {
-        const graba = await userDAO.saveElement(usuarioData)
-        } catch (err){
-            throw  new Error(err)
+            const graba = await userDAO.saveElement(usuarioData)
+        } catch (err) {
+            throw new Error(err)
         }
         res.redirect('/login')
     }
