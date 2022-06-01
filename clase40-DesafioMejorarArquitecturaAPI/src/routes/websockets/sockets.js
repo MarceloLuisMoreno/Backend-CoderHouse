@@ -7,29 +7,10 @@ const MensajeController = require("../../controllers/Mensaje.controller.js")
 const productos = ProductoController
 const mensajes = MensajeController
 
-
-/* 
-const {
-    knexMySQL
-} = require('../../../options/dbMySQL')
-
-// Clase contenedor: creo una instancia para productos y otra para mensajes. Uso el mismo contenedor para ambas bases de datos.
-const ContenedorSql = require('../../contenedores/ContenedorSQL')
-const ContenedorArchivo = require('../../contenedores/ContenedorArchivo')
-
-const contenedorProductos = new ContenedorSql(knexMySQL, 'products')
-const contenedorMessages = new ContenedorArchivo('../../../public/data/messages.json')
- */
-
-
 const normalizar = require('../../normalizacion/normalizrMessages')
-
-
-
 
 module.exports = (io, socket) => {
     logger.info(`WebSockets: Nuevo cliente conectado`)
-
 
     //    try {
 
@@ -51,7 +32,6 @@ module.exports = (io, socket) => {
                 })
             })
     })
-
 
     // Escucho los mensajes enviados por el cliente y se los propago a todos
     socket.on('newMessage', async message => {

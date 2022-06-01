@@ -29,17 +29,13 @@ class MensajesDAOMem extends DAO {
     guardar(elemento) {
         let doc = null;
         try {
-            if (!this.validarDuplicidad(elemento.id)) {
-                doc = elemento;
-                this.colecction.push(elemento);
-                return doc;
-            } else {
-                doc = {
-                    code: 401,
-                    msg: "id repetido"
-                };
-                return doc;
-            }
+            let newId = this.colecction.length + 1
+            const newDoc = {
+                ...elemento,
+                id: newId
+            };
+            this.colecction.push(newDoc);
+            return doc;
         } catch (error) {
             const cuserr = new CustomError(500, 'Error al guardar()', error);
             logger.error(cuserr);

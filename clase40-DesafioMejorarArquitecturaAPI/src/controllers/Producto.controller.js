@@ -1,31 +1,17 @@
-const config = require("../config/config")
-const ProductosDAOFile = require("../services/ProductosDAO.file.js")
+const ProductosDAOFactory = require("../classes/ProductoDAOFactory.class")
 const ProductoDTO = require("../classes/ProductoDTO.class.js")
-const ProductosDAOMem = require("../services/ProductosDAO.mem.js")
-const ProductosDAOMongoDB = require("../services/ProductosDAO.mongodb.js")
 const logger = require("../loggers/logger")
 
+const DAO = ProductosDAOFactory.get()
 
-let prdDAO
-switch (config.srv.persistencia) {
-    case 'mongodb':
-        prdDAO = new ProductosDAOMongoDB();
-        break;
-    case 'file':
-        prdDAO = new ProductosDAOFile();
-        break;
-    default:
-        prdDAO = new ProductosDAOMem();
-        break;
-}
 
 async function listar(id) {
-    let doc = await prdDAO.listar(id)
+    let doc = await DAO.listar(id)
     return new ProductoDTO(doc.id, doc.title, doc.thumbnail, doc.price);
 }
 
 async function listarAll() {
-    let docs = await prdDAO.listarAll()
+    let docs = await DAO.listarAll()
     let prdDTOs = docs.map(o => {
         return new ProductoDTO(o.id, o.title, o.thumbnail, o.price);
     })
@@ -40,7 +26,7 @@ async function guardar(elem) {
             ...elem,
             timestamp
         };
-        const id = await prdDAO.guardar(newElemento);
+        const id = await DAO.guardar(newElemento);
         return id
     } catch (error) {
         logger.error(`Error al guardar: ${error}`)
@@ -49,15 +35,15 @@ async function guardar(elem) {
 }
 
 async function actualizar(id) {
-    await prdDAO.actualizar(id);
+    await DAO.actualizar(id);
 }
 
 async function borrar(id) {
-    await prdDAO.borrar(id);
+    await DAO.borrar(id);
 }
 
 async function borrarAll() {
-    await prdDAO.borrarAll();
+    await DAO.borrarAll();
 }
 
 module.exports = {
