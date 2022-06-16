@@ -1,0 +1,93 @@
+query {
+	listarMensajes {
+		id
+		text
+		date
+		author {
+			mail
+			nombre
+			apellido
+			edad
+			alias
+			avatar
+		}
+	}
+}
+
+mutation {
+	nuevoMensaje(
+		datos: {
+			author: {
+				mail: "a@a"
+				nombre: "Pedro"
+				apellido: "Juarez"
+				edad: 52
+				alias: "pepito"
+				avatar: "https://cdn1.iconfinder.com/data/icons/user-pictures/100/male3-256.png"
+			}
+			text: "Probando Graphql"
+			date: "15/6/2022, 17:09:01"
+		}
+	) {
+		id
+	}
+}
+
+query {
+	listarProductos {
+		id
+		title
+		price
+		thumbnail
+	}
+}
+
+query {
+	listarProducto(id: "4") {
+		id
+		title
+		price
+		thumbnail
+		timestamp
+	}
+}
+
+mutation {
+	nuevoProducto(
+		datos: {
+			title: "CARPETAS tapa dura"
+			price: 2000
+			thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/board-math-class-school-256.png"
+			timestamp: "15/6/2022 12:11:21"
+		}
+	) {
+		id
+		title
+		price
+		thumbnail
+	}
+}
+
+mutation {
+	actualizarProducto(
+		id: "10"
+		datos: {
+			title: "CARPETAS tapa dura"
+			price: 2500
+			thumbnail: "https://cdn3.iconfinder.com/data/icons/education-209/64/board-math-class-school-256.png"
+			timestamp: "15/6/2022 12:11:21"
+		}
+	) {
+		id
+		title
+		price
+		thumbnail
+		timestamp
+	}
+}
+
+mutation {
+	deleteProducto(id: "2") {
+		id
+	}
+}
