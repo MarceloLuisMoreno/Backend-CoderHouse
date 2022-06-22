@@ -1,0 +1,46 @@
+/*========== Modulos globales para DAOs ==========*/
+const CustomError = require("../../../Classes/CustomError.class.js")
+const logger = require("../../../loggers/logger")
+const {
+    promises: fs
+} = require('fs')
+const config = require("../../../config/config")
+const DAO = require("../DAO.class.js")
+
+class MensajesDAOFile extends DAO {
+    constructor(ruta) {
+        super();
+        if (MensajesDAOFile.instancia) return MensajesDAOFile.instancia
+        this.ruta = `${config.filedb.pathdb}/mensajes.json`;
+        MensajesDAOFile.instancia = this
+    }
+
+    async listarAll() {
+        try {
+            const objs = await fs.readFile(this.ruta, 'utf-8')
+            return JSON.parse(objs)
+        } catch (error) {
+            return []
+        }
+    }
+
+    async guardar(obj) {
+        const objs = await this.listarAll();
+        let newId = objs.length + 1
+        const newObj = {
+            ...obj,
+            id: newId
+        };
+        objs.push(newObj)
+
+        try {
+            await fs.writeFile(this.ruta, JSON.stringify(objs, null, 2))
+            return newObj
+        } catch (error) {
+            throw new Error(`Error al guardar: ${error}`)
+        }
+    }
+
+}
+
+module.exports = MensajesDAOFile;
