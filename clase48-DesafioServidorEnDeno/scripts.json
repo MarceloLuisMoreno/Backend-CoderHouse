@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "start": {
+      "cmd": " deno run --allow-net server.tsx",
+      "desc": "run my app.ts file"
+    }
+  }
+}
