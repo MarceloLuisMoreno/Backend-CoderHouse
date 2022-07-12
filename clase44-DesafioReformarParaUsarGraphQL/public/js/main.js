@@ -1,5 +1,5 @@
 // Mi cliente
-const socket = io.connect();
+//const socket = io.connect();
 
 /*=======[defino ruta endpoints]=======*/
 let url = window.location.href

@@ -1,0 +1,115 @@
+<!-- Bienvenida de usuario -->
+<div class="container mt-3" id="bienvenida">
+    <div class="rounded p-3" style="background-color: rgb(156, 221, 159);">
+
+        <h1 style="color: green">Bienvenido, {{email}} </h1>
+        <div class="m-3">
+            <button type="button" class="btn btn-warning" onclick="verDatos()">Mis Datos y Chat</button>
+            <button type="button" class="btn btn-warning" onclick="location.href = '#productos'">Productos</button>
+            <button type="button" class="btn btn-warning" onclick="verCarritos()">Mi carrito</button>
+            <button type=" button" class="btn btn-warning" onclick="location.href = '/fired'">Desloguearse</button>
+        </div>
+    </div>
+
+</div>
+
+<!-- Vista de los Datos del cliente -->
+<div id="misDatos" class="jumbotron" hidden>
+    <h2 style="color: blue">Mis Datos y chat</h2>
+    <br />
+    <div>
+        <img src="{{avatar}}" width=90px>
+        <br>
+        <h5 class="card-title">Nombre: {{nombre}}</h5>
+        <p>Email: <span id="usuario.email"> {{email}}</span></p>
+        <p>Direccion: {{direccion}}</p>
+        <p>Edad: {{edad}}</p>
+        <p>Celular: {{celular}}</p>
+        <form id="Chat" onsubmit="SendMesage(); return false;" class="border border-primary p-3 mb-3 rounded jumbotron">
+            <div hidden>
+                <div class="mb-3 col-5">
+                    <input type="email" id="mail" name="mail" class="form-control" value={{email}} />
+                </div>
+                <div class="mb-3 col-5">
+                    <input type="text" id="nombre" name="nombre" class="form-control" value={{nombre}} />
+                </div>
+                <div class="mb-3 col-5">
+                    <input type="text" id="direccion" name="direccion" class="form-control" value={{direccion}} />
+                </div>
+                <div class="mb-3 col-2">
+                    <input type="text" id="edad" name="edad" class="form-control" value={{edad}} />
+                </div>
+                <div class="mb-3 col-4">
+                    <input type="text" id="celular" name="celular" class="form-control" value={{celular}} />
+                </div>
+                <div class="mb-3 col-5">
+                    <input type="text" id="avatar" name="avatar" class="form-control" value={{avatar}} />
+                </div>
+
+            </div>
+
+            <h3>Conversacion:</h3>
+            <div class="mb-3">
+                <div id="tableMessages"></div>
+            </div>
+
+            <h3>Mensaje:</h3>
+            <div class="row g-3 mb-3">
+                <div class="col-10">
+                    <input type="text" id="mensaje" name="mensaje" class="form-control" />
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+            <div class="mb-3">
+
+            </div>
+        </form>
+        <br>
+        <button id="datosUser${{id}}" class="btn btn-danger btn-sm" onclick="salirDatos()">Cerrar</button>
+    </div>
+</div>
+<br>
+
+<!-- Vista del Carrito -->
+<div id="carritos" class="jumbotron" hidden>
+    <h2 style="color: blue">Mi Carrito </h2>
+    <br />
+    <div id="carrito"></div>
+    <button id="carritosUser${{id}}" class="btn btn-danger btn-sm" onclick="salirCarritos()">Cerrar</button>
+
+</div>
+
+<!-- Vista de los Productos -->
+<div id="productos" class="jumbotron">
+    <h2 style="color: blue">Lista de Productos</h2>
+    <br />
+    <div id="tableProducts" class="card-columns mx-auto" style="column-count: 5"></div>
+</div>
+<br>
+
+<!-- Centro de Mensajes -->
+{{!-- <form id="Chat" onsubmit="SendMesage(); return false;" class="border border-primary p-3 mb-3 rounded jumbotron">
+    <h2 style="color: blue;">Centro de Mensajes</h2>
+    <div class="mb-3">
+        <div id="tableMessages"></div>
+    </div>
+
+    <h3>Mensaje:</h3>
+    <div class="row g-3 mb-3">
+        <div class="col-10">
+            <input type="text" id="mensaje" name="mensaje" class="form-control" />
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+    </div>
+    <div class="mb-3">
+
+    </div>
+</form>
+--}}
+
+
+<script src="js/mainCli.js"></script>

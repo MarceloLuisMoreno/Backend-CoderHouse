@@ -19,6 +19,7 @@ module.exports = (io, socket) => {
     })
 
     mensajes.listarAll().then(result => {
+        console.log(result)
         socket.emit('messages', normalizar.normalizarMensajes(result))
 
     })
@@ -37,6 +38,8 @@ module.exports = (io, socket) => {
     socket.on('newMessage', async message => {
         await mensajes.guardar(message)
         let messages = await mensajes.listarAll()
+
+
         let messagesNormalizr = normalizar.normalizarMensajes(messages)
         io.sockets.emit('messages', messagesNormalizr)
     })

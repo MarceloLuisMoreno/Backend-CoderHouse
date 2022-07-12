@@ -97,6 +97,8 @@ module.exports = class ContenedorMongo {
                     stock: stock
                 }
             })
+
+            console.log(modificado)
             if (modificado.modifieCount === 0 || !modificado.modifieCount)
                 throw new Error(`Error al actualizar id: ${id}`)
             else return void(0)

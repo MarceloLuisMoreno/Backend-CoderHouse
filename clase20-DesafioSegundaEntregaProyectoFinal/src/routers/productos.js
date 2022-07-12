@@ -15,7 +15,7 @@ router.get("/:id", apiProductos.getProduct)
 router.post("/", middlewares.isAdmin, validations.validate(validations.validationProduct), apiProductos.saveProduct)
 
 // PUT: '/:id' - Actualiza un producto por su id (disponible para administradores) 
-router.put("/:id", middlewares.isAdmin, validations.validate(validations.validationProduct), apiProductos.updateProdById)
+router.put("/:id", middlewares.isAdmin, apiProductos.updateProdById)
 
 // DELETE: '/:id' - Borra un producto por su id (disponible para administradores)
 router.delete("/:id", middlewares.isAdmin, apiProductos.deleteProduct)
